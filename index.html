@@ -1,799 +1,363 @@
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+// iTeam-sh Website JavaScript
 
-    <!-- SEO Meta Tags -->
-    <title>iTeam-sh | IT Services רעננה - שירותי IT לעסקים</title>
-    <meta name="description" content="iTeam-sh - IT Services ברעננה. שירותי IT מקצועיים לעסקים קטנים ובינוניים: ייעוץ, תמיכה טכנית, פתרונות ענן ואבטחת מידע.">
-    <meta name="keywords" content="IT Services, שירותי IT, רעננה, תמיכה טכנית, ייעוץ IT, אבטחת מידע, שירותי ענן, עסקים קטנים ובינוניים">
-    <meta name="author" content="iTeam-sh">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://www.iteam-sh.co.il/">
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.iteam-sh.co.il/">
-    <meta property="og:title" content="iTeam-sh | IT Services רעננה - שירותי IT לעסקים">
-    <meta property="og:description" content="שירותי IT מקצועיים לעסקים ברעננה. ייעוץ, תמיכה טכנית, פתרונות ענן ואבטחת מידע. צרו קשר לייעוץ חינם!">
-    <meta property="og:image" content="https://www.iteam-sh.co.il/images/og-image.jpg">
-    <meta property="og:locale" content="he_IL">
-    <meta property="og:site_name" content="iTeam-sh">
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            // Toggle hamburger animation
+            this.classList.toggle('active');
+        });
+    }
 
-    <!-- Twitter / LinkedIn -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://www.iteam-sh.co.il/">
-    <meta name="twitter:title" content="iTeam-sh | IT Services רעננה - שירותי IT לעסקים">
-    <meta name="twitter:description" content="שירותי IT מקצועיים לעסקים ברעננה. ייעוץ, תמיכה טכנית, פתרונות ענן ואבטחת מידע.">
-    <meta name="twitter:image" content="https://www.iteam-sh.co.il/images/og-image.jpg">
+    // Close mobile menu when clicking a link
+    const navItems = document.querySelectorAll('.nav-links a');
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            navLinks.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
+        });
+    });
 
-    <!-- Favicon (add your favicon files) -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    let lastScroll = 0;
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
 
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "@id": "https://www.iteam-sh.co.il/#organization",
-        "name": "iTeam-sh",
-        "alternateName": "iTeam-sh IT Services",
-        "description": "שירותי IT מקצועיים לעסקים קטנים ובינוניים ברעננה והסביבה. ייעוץ, תמיכה טכנית, פתרונות ענן ואבטחת מידע.",
-        "url": "https://www.iteam-sh.co.il",
-        "logo": "https://www.iteam-sh.co.il/images/logo.png",
-        "image": "https://www.iteam-sh.co.il/images/og-image.jpg",
-        "telephone": "+972-3-1234567",
-        "email": "info@iteam-sh.co.il",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "רחוב אחוזה",
-            "addressLocality": "רעננה",
-            "addressRegion": "מרכז",
-            "postalCode": "4310000",
-            "addressCountry": "IL"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": "32.1848",
-            "longitude": "34.8711"
-        },
-        "openingHoursSpecification": [
-            {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
-                "opens": "09:00",
-                "closes": "18:00"
+        if (currentScroll > 100) {
+            header.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1)';
+        } else {
+            header.style.boxShadow = '0 1px 2px 0 rgb(0 0 0 / 0.05)';
+        }
+
+        lastScroll = currentScroll;
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
             }
-        ],
-        "priceRange": "₪₪",
-        "currenciesAccepted": "ILS",
-        "paymentAccepted": "Cash, Credit Card, Bank Transfer",
-        "areaServed": [
-            {
-                "@type": "City",
-                "name": "רעננה"
-            },
-            {
-                "@type": "City",
-                "name": "הרצליה"
-            },
-            {
-                "@type": "City",
-                "name": "כפר סבא"
-            },
-            {
-                "@type": "City",
-                "name": "תל אביב"
-            },
-            {
-                "@type": "State",
-                "name": "מחוז המרכז"
+        });
+    });
+
+    // Contact Form Handling
+    const contactForm = document.getElementById('contactForm');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            // Basic validation
+            const requiredFields = ['name', 'company', 'phone', 'email'];
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                const input = document.getElementById(field);
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = '#ef4444';
+                } else {
+                    input.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                }
+            });
+
+            // Email validation
+            const emailInput = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                isValid = false;
+                emailInput.style.borderColor = '#ef4444';
             }
-        ],
-        "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "שירותי IT",
-            "itemListElement": [
-                {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "Managed IT Services",
-                        "alternateName": "ניהול ותמיכה במחשוב לעסקים",
-                        "description": "שירותי תחזוקה שוטפת, ניטור ובקרה על מערכות המחשוב, ופתרון תקלות בזמן אמת"
-                    }
-                },
-                {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "Cyber Security",
-                        "alternateName": "פתרונות אבטחת מידע",
-                        "description": "הגנה על מערכות ורשתות, הטמעת כלים למניעת פריצות וסייבר, וניהול הרשאות"
-                    }
-                },
-                {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "Cloud Migration",
-                        "alternateName": "שירותי ענן לעסקים",
-                        "description": "פתרונות אחסון וגיבוי בענן, שירותי שרתים וירטואליים, וניהול סביבות ענן"
-                    }
-                },
-                {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "IT Consulting",
-                        "alternateName": "ייעוץ IT לעסקים",
-                        "description": "מיפוי מערכות, בניית תוכנית טכנולוגית לצמיחת העסק, ותכנון אסטרטגיות IT"
-                    }
-                },
-                {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "Infrastructure Projects",
-                        "alternateName": "פרויקטים להקמת ושדרוג מערכות",
-                        "description": "הקמת שרתים ורשתות תקשורת, שדרוג מערכות קיימות, והגירת נתונים"
-                    }
-                },
-                {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "IT Optimization",
-                        "alternateName": "אופטימיזציה של מערכות IT",
-                        "description": "בחינת מערכות קיימות, איתור צווארי בקבוק, וייעול ביצועים"
+
+            // Phone validation (Israeli format)
+            const phoneInput = document.getElementById('phone');
+            const phoneRegex = /^0[0-9]{1,2}[-]?[0-9]{7}$/;
+            if (!phoneRegex.test(phoneInput.value.replace(/\s/g, ''))) {
+                isValid = false;
+                phoneInput.style.borderColor = '#ef4444';
+            }
+
+            if (isValid) {
+                // Set _replyto to the user's email so replies go to them
+                const replyToField = contactForm.querySelector('input[name="_replyto"]');
+                if (replyToField) {
+                    replyToField.value = emailInput.value;
+                }
+
+                // Disable submit button while sending
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'שולח...';
+
+                // Submit to Formspree via AJAX (no redirect)
+                fetch('https://formspree.io/f/mgolndpk', {
+                    method: 'POST',
+                    body: new FormData(contactForm),
+                    headers: { 'Accept': 'application/json' }
+                }).then(function() {
+                    // Success - show custom message instead of redirecting
+                    const formWrapper = document.querySelector('.contact-form-wrapper');
+                    formWrapper.innerHTML = `
+                        <div class="form-success">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <h3>הפנייה נשלחה בהצלחה!</h3>
+                            <p>תודה שפנית אלינו. נחזור אליך בהקדם האפשרי.</p>
+                        </div>
+                    `;
+                    console.log('Form submitted to Formspree:', data);
+                }).catch(function(error) {
+                    // Error handling
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                    console.error('Form submission error:', error);
+                    alert('שגיאה בשליחת הטופס. אנא נסו שוב.');
+                });
+            }
+        });
+
+        // Remove error styling on input
+        const inputs = contactForm.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                this.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            });
+        });
+    }
+
+    // Intersection Observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-fade-in-up');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements for animation
+    const animateElements = document.querySelectorAll('.service-card, .why-card, .about-feature');
+    animateElements.forEach(el => {
+        el.style.opacity = '0';
+        observer.observe(el);
+    });
+
+    // Stats counter animation
+    const statsSection = document.querySelector('.hero-stats');
+    let hasAnimated = false;
+
+    const statsObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasAnimated) {
+                hasAnimated = true;
+                animateStats();
+            }
+        });
+    }, { threshold: 0.5 });
+
+    if (statsSection) {
+        statsObserver.observe(statsSection);
+    }
+
+    function animateStats() {
+        const stats = document.querySelectorAll('.stat-number');
+
+        stats.forEach(stat => {
+            const text = stat.textContent;
+            const hasPlus = text.includes('+');
+            const hasSlash = text.includes('/');
+
+            if (hasSlash) {
+                // For "24/7" type stats, just show it
+                return;
+            }
+
+            const target = parseInt(text.replace(/\D/g, ''));
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                stat.textContent = Math.floor(current) + (hasPlus ? '+' : '');
+            }, 16);
+        });
+    }
+
+    // Hero Particles Network Effect (particles.js style)
+    const heroCanvas = document.getElementById('hero-particles');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (heroCanvas && !prefersReducedMotion) {
+        const ctx = heroCanvas.getContext('2d');
+        const particles = [];
+        const particleCount = 80;
+        const linkDistance = 150;
+        const mouse = { x: null, y: null, radius: 180 };
+
+        function resizeHeroCanvas() {
+            const hero = heroCanvas.parentElement;
+            heroCanvas.width = hero.offsetWidth;
+            heroCanvas.height = hero.offsetHeight;
+        }
+        resizeHeroCanvas();
+        window.addEventListener('resize', resizeHeroCanvas);
+
+        // Track mouse position relative to the hero section
+        const heroSection = heroCanvas.closest('.hero');
+        heroSection.style.pointerEvents = 'auto';
+        heroCanvas.style.pointerEvents = 'none';
+
+        heroSection.addEventListener('mousemove', function(e) {
+            const rect = heroSection.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+
+        heroSection.addEventListener('mouseleave', function() {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // Particle class
+        class Particle {
+            constructor() {
+                this.x = Math.random() * heroCanvas.width;
+                this.y = Math.random() * heroCanvas.height;
+                // Constant base velocity matching particles.js speed
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.radius = Math.random() * 2 + 1;
+                this.opacity = Math.random() * 0.5 + 0.3;
+            }
+
+            update() {
+                // Steady linear movement — no dampening
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off edges (like particles.js)
+                if (this.x < 0) { this.x = 0; this.vx = -this.vx; }
+                if (this.x > heroCanvas.width) { this.x = heroCanvas.width; this.vx = -this.vx; }
+                if (this.y < 0) { this.y = 0; this.vy = -this.vy; }
+                if (this.y > heroCanvas.height) { this.y = heroCanvas.height; this.vy = -this.vy; }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, ' + this.opacity + ')';
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Draw connecting lines between nearby particles
+        function drawLinks() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < linkDistance) {
+                        const opacity = (1 - dist / linkDistance) * 0.25;
+                        ctx.beginPath();
+                        ctx.strokeStyle = 'rgba(255, 255, 255, ' + opacity + ')';
+                        ctx.lineWidth = 0.8;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
                     }
                 }
-            ]
-        },
-        "sameAs": [
-            "https://www.facebook.com/iteamsh",
-            "https://www.linkedin.com/company/iteam-sh"
-        ],
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "reviewCount": "127",
-            "bestRating": "5",
-            "worstRating": "1"
+            }
+
+            // Draw lines from mouse to nearby particles
+            if (mouse.x !== null && mouse.y !== null) {
+                for (let i = 0; i < particles.length; i++) {
+                    const dx = particles[i].x - mouse.x;
+                    const dy = particles[i].y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < mouse.radius) {
+                        const opacity = (1 - dist / mouse.radius) * 0.4;
+                        ctx.beginPath();
+                        ctx.strokeStyle = 'rgba(13, 148, 136, ' + opacity + ')';
+                        ctx.lineWidth = 0.6;
+                        ctx.moveTo(mouse.x, mouse.y);
+                        ctx.lineTo(particles[i].x, particles[i].y);
+                        ctx.stroke();
+                    }
+                }
+            }
         }
+
+        // Animation loop
+        function animateHeroParticles() {
+            ctx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+
+            particles.forEach(function(p) {
+                p.update();
+                p.draw();
+            });
+
+            drawLinks();
+            requestAnimationFrame(animateHeroParticles);
+        }
+
+        animateHeroParticles();
     }
-    </script>
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="#" class="logo">
-                    <img src="images/iteam-logo.png" alt="iTeam-sh לוגו" class="logo-img">
-                </a>
-                <ul class="nav-links">
-                    <li><a href="#services">שירותים</a></li>
-                    <li><a href="#about">אודות</a></li>
-                    <li><a href="#why-us">למה אנחנו</a></li>
-                    <li><a href="#contact" class="btn btn-nav">צור קשר</a></li>
-                </ul>
-                <button class="mobile-menu-btn" aria-label="תפריט">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </nav>
-        </div>
-    </header>
+});
 
-    <!-- Hero Section -->
-
-    <section class="hero">
-        <!-- Background -->
-        <div class="hero-bg">
-            <div class="hero-bg-glow"></div>
-            <div class="hero-bg-grid"></div>
-        </div>
-
-        <!-- Particles Network Effect -->
-        <canvas id="hero-particles" aria-hidden="true"></canvas>
-
-        <!-- Content -->
-        <div class="container">
-            <div class="hero-content">
-                <h1>פתרונות IT מתקדמים<br><span class="h1-accent">לעסק שלך</span></h1>
-                <p class="hero-subtitle">אנחנו מספקים שירותי IT מקצועיים לעסקים קטנים ובינוניים. מייעוץ אסטרטגי ועד תמיכה טכנית שוטפת — אנחנו כאן כדי שהטכנולוגיה תעבוד בשבילך.</p>
-                <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary">קבל הצעת מחיר</a>
-                    <a href="#services" class="btn btn-secondary">השירותים שלנו</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header">
-                <h2>השירותים שלנו</h2>
-                <p>פתרונות IT מקיפים המותאמים לצרכי העסק שלך</p>
-            </div>
-            <div class="services-grid">
-                <!-- Service 1 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                            <line x1="12" y1="22.08" x2="12" y2="12"/>
-                        </svg>
-                    </div>
-                    <h3>ייעוץ IT לעסקים</h3>
-                    <ul>
-                        <li>מיפוי מערכות וייעוץ לשיפור ביצועים</li>
-                        <li>בניית תוכנית טכנולוגית לצמיחת העסק</li>
-                        <li>תכנון אסטרטגיות IT בהתאמה אישית</li>
-                    </ul>
-                    <a href="services/it-consulting.html" class="service-link">למידע נוסף ←</a>
-                </div>
-
-                <!-- Service 2 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                            <line x1="8" y1="21" x2="16" y2="21"/>
-                            <line x1="12" y1="17" x2="12" y2="21"/>
-                        </svg>
-                    </div>
-                    <h3>פרויקטים להקמת ושדרוג מערכות</h3>
-                    <ul>
-                        <li>הקמת שרתים ורשתות תקשורת</li>
-                        <li>שדרוג מערכות קיימות והטמעת פתרונות טכנולוגיים</li>
-                        <li>הגירת נתונים ושדרוג תשתיות IT</li>
-                    </ul>
-                    <a href="services/infrastructure-projects.html" class="service-link">למידע נוסף ←</a>
-                </div>
-
-                <!-- Service 3 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                    </div>
-                    <h3>ניהול ותמיכה במחשוב לעסקים</h3>
-                    <ul>
-                        <li>שירותי תחזוקה שוטפת ותמיכה טכנית</li>
-                        <li>ניטור ובקרה על מערכות המחשוב</li>
-                        <li>פתרון תקלות בזמן אמת (Helpdesk)</li>
-                    </ul>
-                    <a href="services/it-management-support.html" class="service-link">למידע נוסף ←</a>
-                </div>
-
-                <!-- Service 4 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                        </svg>
-                    </div>
-                    <h3>אופטימיזציה של מערכות IT</h3>
-                    <ul>
-                        <li>בחינת המערכות הקיימות ואיתור צווארי בקבוק</li>
-                        <li>ייעול ביצועים ושיפור תהליכים טכנולוגיים קיימים</li>
-                        <li>המלצות לשדרוג וחיסכון בעלויות</li>
-                    </ul>
-                    <a href="services/it-optimization.html" class="service-link">למידע נוסף ←</a>
-                </div>
-
-                <!-- Service 5 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
-                        </svg>
-                    </div>
-                    <h3>שירותי ענן לעסקים</h3>
-                    <ul>
-                        <li>פתרונות אחסון וגיבוי בענן</li>
-                        <li>שירותי שרתים וירטואליים</li>
-                        <li>ניהול ובקרה של סביבות ענן</li>
-                    </ul>
-                    <a href="services/cloud-services.html" class="service-link">למידע נוסף ←</a>
-                </div>
-
-                <!-- Service 6 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                        </svg>
-                    </div>
-                    <h3>פתרונות אבטחת מידע</h3>
-                    <ul>
-                        <li>הגנה על מערכות ורשתות</li>
-                        <li>הטמעת כלים למניעת פריצות וסייבר</li>
-                        <li>ניהול הרשאות ואבטחת מידע פנימית</li>
-                    </ul>
-                    <a href="services/cyber-security.html" class="service-link">למידע נוסף ←</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>אנחנו iTeam</h2>
-                    <p class="about-lead">השותף הטכנולוגי שלך להצלחה עסקית</p>
-                    <p>ב-iTeam אנחנו מאמינים שטכנולוגיה צריכה לעבוד בשביל העסק שלך, ולא להפך. עם ניסיון רב בתחום ה-IT, אנחנו מספקים פתרונות מותאמים אישית לעסקים קטנים ובינוניים בכל רחבי הארץ.</p>
-                    <p>הצוות שלנו מורכב ממומחי IT מנוסים, שמבינים את האתגרים הייחודיים של עסקים בצמיחה. אנחנו לא רק מתקנים בעיות - אנחנו בונים תשתית טכנולוגית שתתמוך בהתפתחות העסק שלך לאורך זמן.</p>
-                    <div class="about-features">
-                        <div class="about-feature">
-                            <span class="check-icon">✓</span>
-                            <span>מענה מהיר ומקצועי</span>
-                        </div>
-                        <div class="about-feature">
-                            <span class="check-icon">✓</span>
-                            <span>פתרונות מותאמים אישית</span>
-                        </div>
-                        <div class="about-feature">
-                            <span class="check-icon">✓</span>
-                            <span>מחירים הוגנים ושקופים</span>
-                        </div>
-                        <div class="about-feature">
-                            <span class="check-icon">✓</span>
-                            <span>ליווי צמוד לאורך כל הדרך</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <div class="isometric-visual">
-                        <svg viewBox="0 0 400 350" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="איור איזומטרי של חוות שרתים עם העברת נתונים בין שרתים, מייצג את תשתיות ה-IT והענן שלנו">
-                            <!-- Isometric Grid Floor -->
-                            <g class="iso-grid" opacity="0.1">
-                                <path d="M200 300 L50 210 L50 110 L200 200 Z" stroke="#001F3F" stroke-width="0.5" fill="none"/>
-                                <path d="M200 300 L350 210 L350 110 L200 200 Z" stroke="#001F3F" stroke-width="0.5" fill="none"/>
-                                <path d="M200 200 L50 110 L200 20 L350 110 Z" stroke="#001F3F" stroke-width="0.5" fill="none"/>
-                            </g>
-
-                            <!-- Server Rack 1 (Left) -->
-                            <g class="server-rack rack-1">
-                                <!-- Rack Body - Isometric Cube -->
-                                <path d="M80 250 L80 130 L130 100 L130 220 Z" fill="#001F3F" opacity="0.9"/>
-                                <path d="M130 100 L180 130 L180 250 L130 220 Z" fill="#001F3F" opacity="0.7"/>
-                                <path d="M80 130 L130 100 L180 130 L130 160 Z" fill="#001F3F" opacity="0.5"/>
-
-                                <!-- Server Units -->
-                                <rect x="88" y="145" width="35" height="12" fill="#0a1628" opacity="0.8" transform="skewY(-30)"/>
-                                <rect x="88" y="165" width="35" height="12" fill="#0a1628" opacity="0.8" transform="skewY(-30)"/>
-                                <rect x="88" y="185" width="35" height="12" fill="#0a1628" opacity="0.8" transform="skewY(-30)"/>
-
-                                <!-- Status LEDs -->
-                                <circle cx="95" cy="155" r="2" fill="#0D9488" class="led-blink"/>
-                                <circle cx="102" cy="155" r="2" fill="#10b981"/>
-                                <circle cx="95" cy="175" r="2" fill="#10b981"/>
-                                <circle cx="102" cy="175" r="2" fill="#10b981"/>
-                                <circle cx="95" cy="195" r="2" fill="#10b981" class="led-blink-slow"/>
-                                <circle cx="102" cy="195" r="2" fill="#0D9488"/>
-                            </g>
-
-                            <!-- Server Rack 2 (Center/Main) with Security Shield -->
-                            <g class="server-rack-with-shield">
-                                <!-- Server Rack 2 -->
-                                <g class="server-rack rack-2">
-                                    <!-- Rack Body - Larger Isometric Cube -->
-                                    <path d="M160 270 L160 120 L220 80 L220 230 Z" fill="#001F3F" opacity="0.95"/>
-                                    <path d="M220 80 L280 120 L280 270 L220 230 Z" fill="#001F3F" opacity="0.75"/>
-                                    <path d="M160 120 L220 80 L280 120 L220 160 Z" fill="#001F3F" opacity="0.55"/>
-
-                                    <!-- Server Units with more detail -->
-                                    <g transform="translate(168, 130)">
-                                        <rect width="42" height="15" fill="#0a1628" opacity="0.9" transform="skewY(-30)"/>
-                                        <circle cx="8" cy="8" r="2.5" fill="#10b981" class="led-blink"/>
-                                        <circle cx="16" cy="8" r="2.5" fill="#10b981"/>
-                                        <rect x="24" y="5" width="12" height="5" rx="1" fill="#1a2a3a"/>
-                                    </g>
-                                    <g transform="translate(168, 155)">
-                                        <rect width="42" height="15" fill="#0a1628" opacity="0.9" transform="skewY(-30)"/>
-                                        <circle cx="8" cy="8" r="2.5" fill="#0D9488" class="led-blink-fast"/>
-                                        <circle cx="16" cy="8" r="2.5" fill="#10b981"/>
-                                        <rect x="24" y="5" width="12" height="5" rx="1" fill="#1a2a3a"/>
-                                    </g>
-                                    <g transform="translate(168, 180)">
-                                        <rect width="42" height="15" fill="#0a1628" opacity="0.9" transform="skewY(-30)"/>
-                                        <circle cx="8" cy="8" r="2.5" fill="#10b981"/>
-                                        <circle cx="16" cy="8" r="2.5" fill="#10b981" class="led-blink-slow"/>
-                                        <rect x="24" y="5" width="12" height="5" rx="1" fill="#1a2a3a"/>
-                                    </g>
-                                    <g transform="translate(168, 205)">
-                                        <rect width="42" height="15" fill="#0a1628" opacity="0.9" transform="skewY(-30)"/>
-                                        <circle cx="8" cy="8" r="2.5" fill="#10b981"/>
-                                        <circle cx="16" cy="8" r="2.5" fill="#10b981"/>
-                                        <rect x="24" y="5" width="12" height="5" rx="1" fill="#1a2a3a"/>
-                                    </g>
-                                </g>
-                            </g>
-
-                            <!-- Server Rack 3 (Right) -->
-                            <g class="server-rack rack-3">
-                                <path d="M260 250 L260 140 L300 115 L300 225 Z" fill="#001F3F" opacity="0.85"/>
-                                <path d="M300 115 L340 140 L340 250 L300 225 Z" fill="#001F3F" opacity="0.65"/>
-                                <path d="M260 140 L300 115 L340 140 L300 165 Z" fill="#001F3F" opacity="0.45"/>
-
-                                <!-- Server Units -->
-                                <rect x="267" y="155" width="28" height="10" fill="#0a1628" opacity="0.8" transform="skewY(-30)"/>
-                                <rect x="267" y="172" width="28" height="10" fill="#0a1628" opacity="0.8" transform="skewY(-30)"/>
-                                <rect x="267" y="189" width="28" height="10" fill="#0a1628" opacity="0.8" transform="skewY(-30)"/>
-
-                                <circle cx="273" cy="162" r="2" fill="#10b981" class="led-blink"/>
-                                <circle cx="273" cy="179" r="2" fill="#10b981"/>
-                                <circle cx="273" cy="196" r="2" fill="#0D9488" class="led-blink-slow"/>
-                            </g>
-
-                            <!-- Data Flow Paths -->
-                            <g class="data-paths">
-                                <!-- Path 1: Left to Center -->
-                                <path d="M130 180 Q150 170 168 165" stroke="#001F3F" stroke-width="1.5" fill="none" opacity="0.3" stroke-dasharray="4 2"/>
-
-                                <!-- Path 2: Center to Right -->
-                                <path d="M220 175 Q240 165 267 170" stroke="#001F3F" stroke-width="1.5" fill="none" opacity="0.3" stroke-dasharray="4 2"/>
-
-                                <!-- Path 3: External incoming -->
-                                <path d="M50 100 Q80 120 88 145" stroke="#001F3F" stroke-width="1.5" fill="none" opacity="0.3" stroke-dasharray="4 2"/>
-
-                                <!-- Path 4: To cloud/external -->
-                                <path d="M300 130 Q330 100 350 70" stroke="#001F3F" stroke-width="1.5" fill="none" opacity="0.3" stroke-dasharray="4 2"/>
-                            </g>
-
-                            <!-- Animated Data Packets -->
-                            <g class="data-packets">
-                                <!-- Packet 1 -->
-                                <g class="packet packet-1">
-                                    <rect x="-4" y="-4" width="8" height="8" fill="#0D9488" opacity="0.9" transform="rotate(45)">
-                                        <animateMotion dur="2s" repeatCount="indefinite" path="M130,180 Q150,170 168,165"/>
-                                    </rect>
-                                </g>
-
-                                <!-- Packet 2 -->
-                                <g class="packet packet-2">
-                                    <rect x="-4" y="-4" width="8" height="8" fill="#001F3F" opacity="0.8" transform="rotate(45)">
-                                        <animateMotion dur="1.8s" repeatCount="indefinite" path="M220,175 Q240,165 267,170"/>
-                                    </rect>
-                                </g>
-
-                                <!-- Packet 3 -->
-                                <g class="packet packet-3">
-                                    <rect x="-3" y="-3" width="6" height="6" fill="#0D9488" opacity="0.7" transform="rotate(45)">
-                                        <animateMotion dur="2.5s" repeatCount="indefinite" path="M50,100 Q80,120 88,145"/>
-                                    </rect>
-                                </g>
-
-                                <!-- Packet 4 -->
-                                <g class="packet packet-4">
-                                    <rect x="-3" y="-3" width="6" height="6" fill="#001F3F" opacity="0.7" transform="rotate(45)">
-                                        <animateMotion dur="2.2s" repeatCount="indefinite" path="M300,130 Q330,100 350,70"/>
-                                    </rect>
-                                </g>
-
-                                <!-- Packet 5 - Reverse flow -->
-                                <g class="packet packet-5">
-                                    <rect x="-4" y="-4" width="8" height="8" fill="#001F3F" opacity="0.6" transform="rotate(45)">
-                                        <animateMotion dur="2.3s" repeatCount="indefinite" path="M168,165 Q150,170 130,180"/>
-                                    </rect>
-                                </g>
-                            </g>
-
-                            <!-- Cloud Symbol (top right, representing cloud services) -->
-                            <g class="cloud-icon" transform="translate(320, 25)">
-                                <g transform="skewY(-10)">
-                                    <path d="M35 20 C35 14 31 11 26 11 C24 7 19 5 14 7 C8 7 3 12 3 17 C3 22 7 25 12 25 L30 25 C33 25 35 23 35 20 Z"
-                                          stroke="#001F3F" stroke-width="1.5" fill="#001F3F" fill-opacity="0.08" opacity="0.7"/>
-                                    <!-- Cloud connection line to rack -->
-                                    <path d="M18 25 L18 45" stroke="#001F3F" stroke-width="1" stroke-dasharray="3 2" opacity="0.3"/>
-                                </g>
-                            </g>
-
-                            <!-- Isometric Floor Shadow -->
-                            <ellipse cx="210" cy="290" rx="120" ry="25" fill="#001F3F" opacity="0.08"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Us Section -->
-    <section id="why-us" class="why-us">
-        <div class="container">
-            <div class="section-header">
-                <h2>למה לבחור ב-iTeam?</h2>
-                <p>היתרונות שלנו הופכים אותנו לשותף האידיאלי עבור העסק שלך</p>
-            </div>
-            <div class="why-us-grid">
-                <div class="why-card">
-                    <div class="why-number">01</div>
-                    <h3>מומחיות ומקצועיות</h3>
-                    <p>צוות מומחים מנוסה עם הסמכות מובילות בתעשייה</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-number">02</div>
-                    <h3>זמינות גבוהה</h3>
-                    <p>תמיכה ומענה מהיר לכל פנייה</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-number">03</div>
-                    <h3>פתרונות מותאמים</h3>
-                    <p>כל פתרון מותאם לצרכים הספציפיים של העסק שלך</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-number">04</div>
-                    <h3>חיסכון בעלויות</h3>
-                    <p>אופטימיזציה של משאבים וחיסכון משמעותי בהוצאות IT</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Partners Section -->
-    <section class="partners">
-        <div class="container">
-            <div class="section-header">
-                <h2>עובדים עם הטובים ביותר</h2>
-                <p>שותפים עסקיים ופתרונות מובילים בתעשייה</p>
-            </div>
-            <div class="partners-grid">
-                <div class="partner-card">
-                    <div class="partner-logo">
-                        <img src="images/partners/eset-logo.png" alt="ESET Logo">
-                    </div>
-                    <span class="partner-desc">אבטחת מידע והגנה מפני איומים</span>
-                </div>
-                <div class="partner-card">
-                    <div class="partner-logo">
-                        <img src="images/partners/microsoft-logo.png" alt="Microsoft Logo">
-                    </div>
-                    <span class="partner-desc">פתרונות ענן ופרודוקטיביות</span>
-                </div>
-                <div class="partner-card">
-                    <div class="partner-logo">
-                        <img src="images/partners/acronis-logo.png" alt="Acronis Logo" class="logo-large">
-                    </div>
-                    <span class="partner-desc">גיבוי והגנת נתונים</span>
-                </div>
-                <div class="partner-card">
-                    <div class="partner-logo">
-                        <img src="images/partners/nakivo-logo.png" alt="Nakivo Logo" class="logo-large">
-                    </div>
-                    <span class="partner-desc">גיבוי ושחזור מכונות וירטואליות</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Customers Section -->
-    <section class="customers">
-        <div class="container">
-            <div class="section-header">
-                <h2>הלקוחות שלנו</h2>
-                <p>גאים ללוות ארגונים מובילים במסע הטכנולוגי שלהם</p>
-            </div>
-            <div class="customers-marquee">
-                <div class="customers-track">
-                    <div class="customer-logo">
-                        <img src="images/customers/103fm.jpg" alt="103FM">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/99fm.jpg" alt="99FM">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/102fm.jpg" alt="102FM">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/104.5.jpg" alt="104.5FM">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/buchnik.jpg" alt="בוכניק">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/zvicohen.jpg" alt="צבי כהן">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/unitedtours.jpg" alt="United Tours">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/Barhom-Logo.jpg" alt="ברהום">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/hazera1939.png" alt="הזרע">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/hakeren.jpg" alt="הקרן">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/shdema.jpg" alt="שדמה">
-                    </div>
-                    <!-- Duplicate for seamless loop -->
-                    <div class="customer-logo">
-                        <img src="images/customers/103fm.jpg" alt="103FM">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/99fm.jpg" alt="99FM">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/102fm.jpg" alt="102FM">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/104.5.jpg" alt="104.5FM">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/buchnik.jpg" alt="בוכניק">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/zvicohen.jpg" alt="צבי כהן">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/unitedtours.jpg" alt="United Tours">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/Barhom-Logo.jpg" alt="ברהום">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/hazera1939.png" alt="הזרע">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/hakeren.jpg" alt="הקרן">
-                    </div>
-                    <div class="customer-logo">
-                        <img src="images/customers/shdema.jpg" alt="שדמה">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>מוכנים לשדרג את ה-IT של העסק?</h2>
-                <p>השאירו פרטים ונחזור אליכם תוך 24 שעות עם הצעה מותאמת אישית</p>
-                <a href="#contact" class="btn btn-primary btn-large">דברו איתנו עכשיו</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-wrapper">
-                <div class="contact-info">
-                    <h2>צרו קשר</h2>
-                    <p>מעוניינים לשמוע עוד? השאירו פרטים ונחזור אליכם בהקדם</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                            </svg>
-                            <span>072-2504001</span>
-                        </div>
-                        <div class="contact-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                <polyline points="22,6 12,13 2,6"/>
-                            </svg>
-                            <span>info@iteam-sh.co.il</span>
-                        </div>
-                        <div class="contact-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                <circle cx="12" cy="10" r="3"/>
-                            </svg>
-                            <span>רעננה, ישראל</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form-wrapper">
-                    <form class="contact-form" id="contactForm">
-                        <input type="hidden" name="_replyto" value="">
-                        <input type="hidden" name="_subject" value="פנייה חדשה מאתר iTeam-sh">
-                        <div class="form-group">
-                            <label for="name">שם מלא *</label>
-                            <input type="text" id="name" name="name" required placeholder="הכנס את שמך">
-                        </div>
-                        <div class="form-group">
-                            <label for="company">שם החברה *</label>
-                            <input type="text" id="company" name="company" required placeholder="שם העסק שלך">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">טלפון *</label>
-                            <input type="tel" id="phone" name="phone" required placeholder="050-0000000">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">אימייל *</label>
-                            <input type="email" id="email" name="email" required placeholder="your@email.com">
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="service">באיזה שירות מתעניינים?</label>
-                            <select id="service" name="service">
-                                <option value="">בחר שירות</option>
-                                <option value="consulting">ייעוץ IT לעסקים</option>
-                                <option value="projects">הקמת ושדרוג מערכות</option>
-                                <option value="support">ניהול ותמיכה במחשוב</option>
-                                <option value="optimization">אופטימיזציה של מערכות</option>
-                                <option value="cloud">שירותי ענן</option>
-                                <option value="security">אבטחת מידע</option>
-                                <option value="other">אחר</option>
-                            </select>
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="message">הודעה</label>
-                            <textarea id="message" name="message" rows="4" placeholder="ספרו לנו קצת על העסק והצרכים שלכם..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-submit">שלח פנייה</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <a href="#" class="logo">
-                        <img src="images/iteam-logo.png" alt="iTeam-sh לוגו" class="logo-img">
-                    </a>
-                    <p>פתרונות IT מקצועיים לעסקים קטנים ובינוניים</p>
-                </div>
-                <div class="footer-links">
-                    <h4>קישורים מהירים</h4>
-                    <ul>
-                        <li><a href="#services">שירותים</a></li>
-                        <li><a href="#about">אודות</a></li>
-                        <li><a href="#why-us">למה אנחנו</a></li>
-                        <li><a href="#contact">צור קשר</a></li>
-                    </ul>
-                </div>
-                <div class="footer-services">
-                    <h4>השירותים שלנו</h4>
-                    <ul>
-                        <li><a href="services/it-consulting.html">ייעוץ IT</a></li>
-                        <li><a href="services/cloud-services.html">שירותי ענן</a></li>
-                        <li><a href="services/cyber-security.html">אבטחת מידע</a></li>
-                        <li><a href="services/it-management-support.html">תמיכה טכנית</a></li>
-                        <li><a href="services/infrastructure-projects.html">הקמה ושדרוג מערכות</a></li>
-                        <li><a href="services/it-optimization.html">אופטימיזציה</a></li>
-                    </ul>
-                </div>
-                <div class="footer-contact">
-                    <h4>צרו קשר</h4>
-                    <p>072-2504001</p>
-                    <p>iteam@iteam-sh.co.il</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 iTeam-sh. כל הזכויות שמורות.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+// Add active class styling for hamburger menu
+const style = document.createElement('style');
+style.textContent = `
+    .mobile-menu-btn.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .mobile-menu-btn.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+`;
+document.head.appendChild(style);
