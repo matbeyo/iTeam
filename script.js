@@ -112,10 +112,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'שולח...';
 
-                // Use native form submission to Formspree (avoids CORS issues)
-                setTimeout(function() {
-                    contactForm.submit();
-                }, 100);
+                // Submit to Formspree using no-cors mode (prevents redirect)
+                fetch(contactForm.action, {
+                    method: 'POST',
+                    body: new FormData(contactForm),
+                    mode: 'no-cors'
+                }).then(function() {
+                    // Success - show custom message instead of redirecting
+                    const formWrapper = document.querySelector('.contact-form-wrapper');
+                    formWrapper.innerHTML = `
+                        <div class="form-success">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <h3>הפנייה נשלחה בהצלחה!</h3>
+                            <p>תודה שפנית אלינו. נחזור אליך בהקדם האפשרי.</p>
+                        </div>
+                    `;
+                    console.log('Form submitted to Formspree:', data);
+                }).catch(function(error) {
+                    // Error handling
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                    console.error('Form submission error:', error);
+                    alert('שגיאה בשליחת הטופס. אנא נסו שוב.');
+                });
             }
         });
 
@@ -339,3 +361,4 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
