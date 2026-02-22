@@ -112,11 +112,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'שולח...';
 
-                // Submit to Formspree using no-cors mode (prevents redirect)
-                fetch(contactForm.action, {
+                // Submit to Formspree via AJAX (no redirect)
+                fetch('https://formspree.io/f/mgolndpk', {
                     method: 'POST',
                     body: new FormData(contactForm),
-                    mode: 'no-cors'
+                    headers: { 'Accept': 'application/json' }
                 }).then(function() {
                     // Success - show custom message instead of redirecting
                     const formWrapper = document.querySelector('.contact-form-wrapper');
