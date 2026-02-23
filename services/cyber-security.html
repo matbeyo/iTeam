@@ -40,11 +40,28 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="../styles.css">
+    <!-- Critical CSS inlined to prevent FOUC while full stylesheet loads async -->
+    <style>
+        :root{--primary-color:#001F3F;--primary-dark:#001529;--accent-color:#0D9488;--bg-primary:#001F3F;--bg-secondary:#001529;--bg-dark:#0a1628;--text-primary:#fff;--text-secondary:rgba(255,255,255,.65);--border-color:rgba(255,255,255,.12);--transition:all .25s ease}
+        [data-theme="light"]{--bg-primary:#F8F9FA;--bg-secondary:#F0F2F5;--bg-dark:#E8EBF0;--text-primary:#1a2332;--text-secondary:#475569}
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth}
+        body{font-family:'Heebo',sans-serif;font-size:16px;line-height:1.7;color:var(--text-primary);background-color:var(--bg-primary);direction:rtl}
+        .container{width:100%;max-width:1200px;margin:0 auto;padding:0 1.5rem}
+        .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--bg-dark)}
+        .nav{display:flex;align-items:center;justify-content:space-between;height:80px}
+        .hero{padding:160px 0 100px;background:var(--primary-color);position:relative;overflow:hidden}
+    </style>
+
+    <!-- Stylesheets: loaded asynchronously to eliminate render-blocking -->
+    <link rel="preload" href="../styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../styles.css"></noscript>
+
+    <!-- Google Fonts: loaded asynchronously -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap"></noscript>
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
