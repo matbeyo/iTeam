@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Header scroll effect
     const header = document.querySelector('.header');
-    let lastScroll = 0;
 
     window.addEventListener('scroll', function() {
         const currentScroll = window.pageYOffset;
@@ -49,8 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             header.style.boxShadow = '0 1px 2px 0 rgb(0 0 0 / 0.05)';
         }
-
-        lastScroll = currentScroll;
     });
 
     // Smooth scroll for anchor links
@@ -76,13 +73,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-
-            // Get form data
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
 
             // Basic validation
             const requiredFields = ['name', 'company', 'phone', 'email'];
@@ -146,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             <p>תודה שפנית אלינו. נחזור אליך בהקדם האפשרי.</p>
                         </div>
                     `;
-                    console.log('Form submitted to Formspree:', data);
                 }).catch(function(error) {
                     // Error handling
                     submitBtn.disabled = false;
