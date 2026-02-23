@@ -224,6 +224,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Back to Top Button
+    const backToTop = document.querySelector('.back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
     // Hero Particles Network Effect (particles.js style)
     const heroCanvas = document.getElementById('hero-particles');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

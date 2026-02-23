@@ -1928,3 +1928,61 @@ ul {
     color: var(--text-secondary);
     font-size: 0.95rem;
 }
+
+/* ========================================
+   Back to Top Button
+   ======================================== */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    z-index: 9999;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(0, 31, 63, 0.85);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background 0.3s ease;
+    padding: 0;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
+}
+
+.back-to-top svg {
+    width: 20px;
+    height: 20px;
+}
+
+[data-theme="light"] .back-to-top {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(0, 31, 63, 0.15);
+    color: #001F3F;
+    box-shadow: 0 2px 8px rgba(0, 31, 63, 0.1);
+}
+
+[data-theme="light"] .back-to-top:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
+}
