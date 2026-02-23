@@ -6,7 +6,6 @@
 /* CSS Variables */
 :root {
     --primary-color: #001F3F;
-    --primary-dark: #001529;
     --primary-light: #003366;
     --accent-color: #0D9488;
     --accent-soft: rgba(13, 148, 136, 0.1);
@@ -1216,16 +1215,6 @@ ul {
     transform: translateY(-3px);
 }
 
-/* Security Shield Floating Animation */
-.security-shield {
-    animation: float-shield 3s ease-in-out infinite;
-}
-
-@keyframes float-shield {
-    0%, 100% { transform: translate(310px, 30px); }
-    50% { transform: translate(310px, 22px); }
-}
-
 /* Cloud Icon Animation */
 .cloud-icon {
     animation: float-cloud 4s ease-in-out infinite 0.5s;
@@ -1907,10 +1896,6 @@ ul {
 /* ========================================
    Utility Classes
    ======================================== */
-.text-center {
-    text-align: center;
-}
-
 /* Animation */
 @keyframes fadeInUp {
     from {
