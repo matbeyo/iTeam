@@ -697,14 +697,13 @@ ul {
     z-index: 1000;
     background: var(--bg-dark);
     border-bottom: none;
-    padding-bottom: 10px;
 }
 
 .nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 72px;
+    height: 80px;
 }
 
 .logo {
@@ -713,7 +712,7 @@ ul {
 }
 
 .logo-img {
-    height: 50px;
+    height: 64px;
     width: auto;
     display: block;
 }
@@ -1769,12 +1768,12 @@ ul {
 
 @media (max-width: 768px) {
     .logo-img {
-        height: 42px;
+        height: 52px;
     }
 
     .nav-links {
         position: fixed;
-        top: 72px;
+        top: 80px;
         right: 0;
         left: 0;
         background: rgba(0, 31, 63, 0.97);
