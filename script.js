@@ -1,0 +1,390 @@
+// iTeam-sh Website JavaScript
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Theme Toggle
+    var themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            if (isLight) {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('iteam-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('iteam-theme', 'light');
+            }
+        });
+    }
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            // Toggle hamburger animation
+            this.classList.toggle('active');
+        });
+    }
+
+    // Close mobile menu when clicking a link
+    const navItems = document.querySelectorAll('.nav-links a');
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            navLinks.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
+        });
+    });
+
+    // Header scroll effect
+    const header = document.querySelector('.header');
+
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll > 100) {
+            header.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1)';
+        } else {
+            header.style.boxShadow = '0 1px 2px 0 rgb(0 0 0 / 0.05)';
+        }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Contact Form Handling
+    const contactForm = document.getElementById('contactForm');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Basic validation
+            const requiredFields = ['name', 'company', 'phone', 'email'];
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                const input = document.getElementById(field);
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = '#ef4444';
+                } else {
+                    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+                    input.style.borderColor = isLight ? 'rgba(0, 31, 63, 0.12)' : 'rgba(255, 255, 255, 0.1)';
+                }
+            });
+
+            // Email validation
+            const emailInput = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                isValid = false;
+                emailInput.style.borderColor = '#ef4444';
+            }
+
+            // Phone validation (Israeli format)
+            const phoneInput = document.getElementById('phone');
+            const phoneRegex = /^0[0-9]{1,2}[-]?[0-9]{7}$/;
+            if (!phoneRegex.test(phoneInput.value.replace(/\s/g, ''))) {
+                isValid = false;
+                phoneInput.style.borderColor = '#ef4444';
+            }
+
+            if (isValid) {
+                // Set _replyto to the user's email so replies go to them
+                const replyToField = contactForm.querySelector('input[name="_replyto"]');
+                if (replyToField) {
+                    replyToField.value = emailInput.value;
+                }
+
+                // Disable submit button while sending
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'שולח...';
+
+                // Submit to Formspree via AJAX (no redirect)
+                fetch('https://formspree.io/f/mgolndpk', {
+                    method: 'POST',
+                    body: new FormData(contactForm),
+                    headers: { 'Accept': 'application/json' }
+                }).then(function() {
+                    // Success - show custom message instead of redirecting
+                    const formWrapper = document.querySelector('.contact-form-wrapper');
+                    formWrapper.innerHTML = `
+                        <div class="form-success">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <h3>הפנייה נשלחה בהצלחה!</h3>
+                            <p>תודה שפנית אלינו. נחזור אליך בהקדם האפשרי.</p>
+                        </div>
+                    `;
+                }).catch(function(error) {
+                    // Error handling
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                    console.error('Form submission error:', error);
+                    alert('שגיאה בשליחת הטופס. אנא נסו שוב.');
+                });
+            }
+        });
+
+        // Remove error styling on input
+        const inputs = contactForm.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+                this.style.borderColor = isLight ? 'rgba(0, 31, 63, 0.12)' : 'rgba(255, 255, 255, 0.1)';
+            });
+        });
+    }
+
+    // Intersection Observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-fade-in-up');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements for animation
+    const animateElements = document.querySelectorAll('.service-card, .why-card, .about-feature');
+    animateElements.forEach(el => {
+        el.style.opacity = '0';
+        observer.observe(el);
+    });
+
+    // Stats counter animation
+    const statsSection = document.querySelector('.hero-stats');
+    let hasAnimated = false;
+
+    const statsObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasAnimated) {
+                hasAnimated = true;
+                animateStats();
+            }
+        });
+    }, { threshold: 0.5 });
+
+    if (statsSection) {
+        statsObserver.observe(statsSection);
+    }
+
+    function animateStats() {
+        const stats = document.querySelectorAll('.stat-number');
+
+        stats.forEach(stat => {
+            const text = stat.textContent;
+            const hasPlus = text.includes('+');
+            const hasSlash = text.includes('/');
+
+            if (hasSlash) {
+                // For "24/7" type stats, just show it
+                return;
+            }
+
+            const target = parseInt(text.replace(/\D/g, ''));
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                stat.textContent = Math.floor(current) + (hasPlus ? '+' : '');
+            }, 16);
+        });
+    }
+
+    // Back to Top Button
+    const backToTop = document.querySelector('.back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Hero Particles Network Effect (particles.js style)
+    const heroCanvas = document.getElementById('hero-particles');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (heroCanvas && !prefersReducedMotion) {
+        const ctx = heroCanvas.getContext('2d');
+        const particles = [];
+        const particleCount = 80;
+        const linkDistance = 150;
+        const mouse = { x: null, y: null, radius: 180 };
+
+        function resizeHeroCanvas() {
+            const hero = heroCanvas.parentElement;
+            heroCanvas.width = hero.offsetWidth;
+            heroCanvas.height = hero.offsetHeight;
+        }
+        resizeHeroCanvas();
+        window.addEventListener('resize', resizeHeroCanvas);
+
+        // Track mouse position relative to the hero section
+        const heroSection = heroCanvas.closest('.hero');
+        heroSection.style.pointerEvents = 'auto';
+        heroCanvas.style.pointerEvents = 'none';
+
+        heroSection.addEventListener('mousemove', function(e) {
+            const rect = heroSection.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+
+        heroSection.addEventListener('mouseleave', function() {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // Particle class
+        class Particle {
+            constructor() {
+                this.x = Math.random() * heroCanvas.width;
+                this.y = Math.random() * heroCanvas.height;
+                // Constant base velocity matching particles.js speed
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.radius = Math.random() * 2 + 1;
+                this.opacity = Math.random() * 0.5 + 0.3;
+            }
+
+            update() {
+                // Steady linear movement — no dampening
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off edges (like particles.js)
+                if (this.x < 0) { this.x = 0; this.vx = -this.vx; }
+                if (this.x > heroCanvas.width) { this.x = heroCanvas.width; this.vx = -this.vx; }
+                if (this.y < 0) { this.y = 0; this.vy = -this.vy; }
+                if (this.y > heroCanvas.height) { this.y = heroCanvas.height; this.vy = -this.vy; }
+            }
+
+            draw() {
+                var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+                var rgb = isLight ? '0, 31, 63' : '255, 255, 255';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + rgb + ', ' + this.opacity + ')';
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Draw connecting lines between nearby particles
+        function drawLinks() {
+            var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            var linkRgb = isLight ? '0, 31, 63' : '255, 255, 255';
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < linkDistance) {
+                        const opacity = (1 - dist / linkDistance) * 0.25;
+                        ctx.beginPath();
+                        ctx.strokeStyle = 'rgba(' + linkRgb + ', ' + opacity + ')';
+                        ctx.lineWidth = 0.8;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Draw lines from mouse to nearby particles
+            if (mouse.x !== null && mouse.y !== null) {
+                for (let i = 0; i < particles.length; i++) {
+                    const dx = particles[i].x - mouse.x;
+                    const dy = particles[i].y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < mouse.radius) {
+                        const opacity = (1 - dist / mouse.radius) * 0.4;
+                        ctx.beginPath();
+                        ctx.strokeStyle = 'rgba(13, 148, 136, ' + opacity + ')';
+                        ctx.lineWidth = 0.6;
+                        ctx.moveTo(mouse.x, mouse.y);
+                        ctx.lineTo(particles[i].x, particles[i].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Animation loop
+        function animateHeroParticles() {
+            ctx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+
+            particles.forEach(function(p) {
+                p.update();
+                p.draw();
+            });
+
+            drawLinks();
+            requestAnimationFrame(animateHeroParticles);
+        }
+
+        animateHeroParticles();
+    }
+});
+
+// Add active class styling for hamburger menu
+const style = document.createElement('style');
+style.textContent = `
+    .mobile-menu-btn.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .mobile-menu-btn.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+`;
+document.head.appendChild(style);
+
