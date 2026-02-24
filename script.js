@@ -247,8 +247,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (heroCanvas && !prefersReducedMotion) {
         const ctx = heroCanvas.getContext('2d');
         const particles = [];
-        const particleCount = 80;
-        const linkDistance = 150;
+        const particleCount = 65;
+        const linkDistance = 140;
         const mouse = { x: null, y: null, radius: 180 };
 
         function resizeHeroCanvas() {
@@ -281,8 +281,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.x = Math.random() * heroCanvas.width;
                 this.y = Math.random() * heroCanvas.height;
                 // Constant base velocity matching particles.js speed
-                this.vx = (Math.random() - 0.5) * 2;
-                this.vy = (Math.random() - 0.5) * 2;
+                this.vx = (Math.random() - 0.5) * 1;
+                this.vy = (Math.random() - 0.5) * 1;
                 this.radius = Math.random() * 2 + 1;
                 this.opacity = Math.random() * 0.5 + 0.3;
             }
