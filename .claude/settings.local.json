@@ -5,7 +5,13 @@
       "Bash(dir:*)",
       "Bash(findstr:*)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit: iTeam static website\n\nHebrew RTL static site for iTeam-sh IT services company. Includes landing page, 6 service detail pages, shared CSS/JS, images, and SEO files.\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(git remote:*)"
     ]
   }
 }

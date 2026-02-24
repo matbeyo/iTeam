@@ -576,6 +576,7 @@ body {
     line-height: 1.7;
     color: var(--text-primary);
     background-color: var(--bg-primary);
+    opacity: 1;
     direction: rtl;
     scrollbar-color: rgba(255, 255, 255, 0.15) var(--bg-primary);
 }
