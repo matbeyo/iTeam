@@ -27,7 +27,6 @@
     <meta property="og:url" content="https://www.iteam-sh.co.il/services/it-optimization.html">
     <meta property="og:title" content="אופטימיזציה של מערכות IT | iTeam-sh">
     <meta property="og:description" content="אופטימיזציה של מערכות IT – בחינת מערכות קיימות, איתור צווארי בקבוק, ייעול ביצועים ושיפור תהליכים טכנולוגיים, ייעוץ טכנולוגי להתאמת המערכות לצרכי הארגון.">
-    <meta property="og:image" content="https://www.iteam-sh.co.il/images/og-image.jpg">
     <meta property="og:locale" content="he_IL">
     <meta property="og:site_name" content="iTeam-sh">
 
@@ -36,14 +35,14 @@
     <meta name="twitter:url" content="https://www.iteam-sh.co.il/services/it-optimization.html">
     <meta name="twitter:title" content="אופטימיזציה של מערכות IT | iTeam-sh">
     <meta name="twitter:description" content="אופטימיזציה של מערכות IT – בחינת מערכות קיימות, איתור צווארי בקבוק, ייעול ביצועים ושיפור תהליכים טכנולוגיים, ייעוץ טכנולוגי להתאמת המערכות לצרכי הארגון.">
-    <meta name="twitter:image" content="https://www.iteam-sh.co.il/images/og-image.jpg">
+
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 
     <!-- Critical CSS inlined to prevent FOUC while full stylesheet loads async -->
     <style>
-        :root{--primary-color:#001F3F;--accent-color:#0D9488;--bg-primary:#001F3F;--bg-secondary:#001529;--bg-dark:#0a1628;--text-primary:#fff;--text-secondary:rgba(255,255,255,.65);--border-color:rgba(255,255,255,.12);--transition:all .25s ease}
+        :root{--primary-color:#001F3F;--accent-color:#0D9488;--bg-primary:#001F3F;--bg-secondary:#001529;--bg-dark:#0a1628;--text-primary:#fff;--text-secondary:rgba(255,255,255,.78);--border-color:rgba(255,255,255,.12);--transition:all .25s ease}
         [data-theme="light"]{--bg-primary:#F8F9FA;--bg-secondary:#F0F2F5;--bg-dark:#E8EBF0;--text-primary:#1a2332;--text-secondary:#475569}
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth}
@@ -56,7 +55,7 @@
 
     <!-- Stylesheets: loaded asynchronously to eliminate render-blocking -->
     <link rel="preload" href="../styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="../styles.css"></noscript>
+    <noscript><link rel="stylesheet" href="../styles.css"><style>body{opacity:1!important}</style></noscript>
 
     <!-- Google Fonts: loaded asynchronously -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -698,6 +697,8 @@
     </style>
 </head>
 <body>
+    <!-- Skip to Content -->
+    <a href="#main-content" class="skip-to-content">דלג לתוכן הראשי</a>
     <!-- Theme Toggle -->
     <button class="theme-toggle" id="themeToggle" aria-label="החלף ערכת נושא">
         <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -715,9 +716,9 @@
                 <a href="../index.html" class="logo" aria-label="iTeam-sh - חזרה לדף הבית">
                     <img src="../images/iteam-logo.png" alt="iTeam-sh לוגו" class="logo-img">
                 </a>
-                <ul class="nav-links">
+                <ul class="nav-links" id="nav-links">
                     <li class="nav-dropdown">
-                        <a href="../index.html#services" class="dropdown-toggle">שירותים</a>
+                        <a href="../index.html#services" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true">שירותים</a>
                         <ul class="dropdown-menu">
                             <li><a href="it-consulting.html">ייעוץ IT לעסקים</a></li>
                             <li><a href="infrastructure-projects.html">הקמה ושדרוג מערכות</a></li>
@@ -728,7 +729,7 @@
                         </ul>
                     </li>
                     <li><a href="../index.html#about">אודות</a></li>
-                    <li><a href="tel:072-2504001" class="nav-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 072-2504001</a></li>
+                    <li><a href="tel:072-2504001" class="nav-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 072-2504001</a></li>
                     <li><a href="../index.html#contact" class="btn btn-nav">צור קשר</a></li>
                 </ul>
                 <button class="mobile-menu-btn" aria-label="פתח תפריט" aria-expanded="false" aria-controls="nav-links">
@@ -1134,15 +1135,15 @@
                     <h4>מידע</h4>
                     <ul>
                         <li class="footer-info-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                             רעננה
                         </li>
                         <li class="footer-info-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                             א׳-ה׳ 09:00-18:00
                         </li>
                         <li class="footer-info-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                             50+ עסקים סומכים עלינו
                         </li>
                     </ul>

@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
             navLinks.classList.toggle('active');
             // Toggle hamburger animation
             this.classList.toggle('active');
+            // Update ARIA expanded state
+            var isExpanded = navLinks.classList.contains('active');
+            this.setAttribute('aria-expanded', isExpanded);
         });
     }
 
@@ -35,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (this.classList.contains('dropdown-toggle')) return;
             navLinks.classList.remove('active');
             mobileMenuBtn.classList.remove('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
         });
     });
 
@@ -44,7 +48,25 @@ document.addEventListener('DOMContentLoaded', function() {
         toggle.addEventListener('click', function(e) {
             if (window.innerWidth <= 768) {
                 e.preventDefault();
-                this.closest('.nav-dropdown').classList.toggle('open');
+                var dropdown = this.closest('.nav-dropdown');
+                dropdown.classList.toggle('open');
+                var isOpen = dropdown.classList.contains('open');
+                this.setAttribute('aria-expanded', isOpen);
+            }
+        });
+
+        // Keyboard support for dropdown on desktop
+        toggle.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                var dropdown = this.closest('.nav-dropdown');
+                dropdown.classList.toggle('open');
+                var isOpen = dropdown.classList.contains('open');
+                this.setAttribute('aria-expanded', isOpen);
+            } else if (e.key === 'Escape') {
+                var dropdown = this.closest('.nav-dropdown');
+                dropdown.classList.remove('open');
+                this.setAttribute('aria-expanded', 'false');
             }
         });
     });
@@ -82,51 +104,80 @@ document.addEventListener('DOMContentLoaded', function() {
     // Contact Form Handling
     const contactForm = document.getElementById('contactForm');
 
+    // Form validation helpers
+    function setFieldError(input, message) {
+        var group = input.closest('.form-group');
+        group.classList.add('has-error');
+        input.setAttribute('aria-invalid', 'true');
+        var errorEl = group.querySelector('.form-error');
+        if (errorEl) {
+            errorEl.textContent = message;
+        }
+        input.style.borderColor = '#ef4444';
+    }
+
+    function clearFieldError(input) {
+        var group = input.closest('.form-group');
+        group.classList.remove('has-error');
+        input.removeAttribute('aria-invalid');
+        var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        input.style.borderColor = isLight ? 'rgba(0, 31, 63, 0.12)' : 'rgba(255, 255, 255, 0.1)';
+    }
+
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
             // Basic validation
-            const requiredFields = ['name', 'company', 'phone', 'email'];
             let isValid = true;
 
-            requiredFields.forEach(field => {
-                const input = document.getElementById(field);
-                if (!input.value.trim()) {
-                    isValid = false;
-                    input.style.borderColor = '#ef4444';
-                } else {
-                    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
-                    input.style.borderColor = isLight ? 'rgba(0, 31, 63, 0.12)' : 'rgba(255, 255, 255, 0.1)';
-                }
-            });
+            var nameInput = document.getElementById('name');
+            var companyInput = document.getElementById('company');
+            var phoneInput = document.getElementById('phone');
+            var emailInput = document.getElementById('email');
 
-            // Email validation
-            const emailInput = document.getElementById('email');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(emailInput.value)) {
+            // Clear previous errors
+            [nameInput, companyInput, phoneInput, emailInput].forEach(clearFieldError);
+
+            if (!nameInput.value.trim()) {
                 isValid = false;
-                emailInput.style.borderColor = '#ef4444';
+                setFieldError(nameInput, 'נא להזין שם מלא');
+            }
+            if (!companyInput.value.trim()) {
+                isValid = false;
+                setFieldError(companyInput, 'נא להזין שם חברה');
             }
 
             // Phone validation (Israeli format)
-            const phoneInput = document.getElementById('phone');
-            const phoneRegex = /^0[0-9]{1,2}[-]?[0-9]{7}$/;
-            if (!phoneRegex.test(phoneInput.value.replace(/\s/g, ''))) {
+            var phoneRegex = /^0[0-9]{1,2}[-]?[0-9]{7}$/;
+            if (!phoneInput.value.trim()) {
                 isValid = false;
-                phoneInput.style.borderColor = '#ef4444';
+                setFieldError(phoneInput, 'נא להזין מספר טלפון');
+            } else if (!phoneRegex.test(phoneInput.value.replace(/\s/g, ''))) {
+                isValid = false;
+                setFieldError(phoneInput, 'מספר טלפון לא תקין (לדוגמה: 050-0000000)');
+            }
+
+            // Email validation
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailInput.value.trim()) {
+                isValid = false;
+                setFieldError(emailInput, 'נא להזין כתובת אימייל');
+            } else if (!emailRegex.test(emailInput.value)) {
+                isValid = false;
+                setFieldError(emailInput, 'כתובת אימייל לא תקינה');
             }
 
             if (isValid) {
                 // Set _replyto to the user's email so replies go to them
-                const replyToField = contactForm.querySelector('input[name="_replyto"]');
+                var replyToField = contactForm.querySelector('input[name="_replyto"]');
                 if (replyToField) {
                     replyToField.value = emailInput.value;
                 }
 
                 // Disable submit button while sending
-                const submitBtn = contactForm.querySelector('button[type="submit"]');
-                const originalBtnText = submitBtn.textContent;
+                var submitBtn = contactForm.querySelector('button[type="submit"]');
+                var originalBtnText = submitBtn.textContent;
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'שולח...';
 
@@ -136,18 +187,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     body: new FormData(contactForm),
                     headers: { 'Accept': 'application/json' }
                 }).then(function() {
-                    // Success - show custom message instead of redirecting
-                    const formWrapper = document.querySelector('.contact-form-wrapper');
-                    formWrapper.innerHTML = `
-                        <div class="form-success">
-                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                                <polyline points="22 4 12 14.01 9 11.01"/>
-                            </svg>
-                            <h3>הפנייה נשלחה בהצלחה!</h3>
-                            <p>תודה שפנית אלינו. נחזור אליך בהקדם האפשרי.</p>
-                        </div>
-                    `;
+                    // Success - show custom message with aria-live for screen readers
+                    var formWrapper = document.querySelector('.contact-form-wrapper');
+                    formWrapper.innerHTML = '<div class="form-success" role="status" aria-live="polite">' +
+                        '<svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" aria-hidden="true">' +
+                        '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>' +
+                        '<polyline points="22 4 12 14.01 9 11.01"/>' +
+                        '</svg>' +
+                        '<h3>הפנייה נשלחה בהצלחה!</h3>' +
+                        '<p>תודה שפנית אלינו. נחזור אליך בהקדם האפשרי.</p>' +
+                        '</div>';
                 }).catch(function(error) {
                     // Error handling
                     submitBtn.disabled = false;
@@ -159,11 +208,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Remove error styling on input
-        const inputs = contactForm.querySelectorAll('input, textarea, select');
-        inputs.forEach(input => {
+        var inputs = contactForm.querySelectorAll('input, textarea, select');
+        inputs.forEach(function(input) {
             input.addEventListener('input', function() {
-                var isLight = document.documentElement.getAttribute('data-theme') === 'light';
-                this.style.borderColor = isLight ? 'rgba(0, 31, 63, 0.12)' : 'rgba(255, 255, 255, 0.1)';
+                clearFieldError(this);
             });
         });
     }
@@ -188,6 +236,40 @@ document.addEventListener('DOMContentLoaded', function() {
     animateElements.forEach(el => {
         el.style.opacity = '0';
         observer.observe(el);
+    });
+
+    // Marquee Pause Button
+    var marqueePauseBtn = document.querySelector('.marquee-pause-btn');
+    if (marqueePauseBtn) {
+        marqueePauseBtn.addEventListener('click', function() {
+            var track = document.querySelector('.customers-track');
+            var isPaused = this.getAttribute('aria-pressed') === 'true';
+            if (isPaused) {
+                track.style.animationPlayState = 'running';
+                this.setAttribute('aria-pressed', 'false');
+                this.setAttribute('aria-label', 'עצור אנימציה');
+                this.querySelector('.pause-icon').style.display = '';
+                this.querySelector('.play-icon').style.display = 'none';
+            } else {
+                track.style.animationPlayState = 'paused';
+                this.setAttribute('aria-pressed', 'true');
+                this.setAttribute('aria-label', 'הפעל אנימציה');
+                this.querySelector('.pause-icon').style.display = 'none';
+                this.querySelector('.play-icon').style.display = '';
+            }
+        });
+    }
+
+    // Close dropdown on outside click
+    document.addEventListener('click', function(e) {
+        var dropdowns = document.querySelectorAll('.nav-dropdown.open');
+        dropdowns.forEach(function(dropdown) {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('open');
+                var toggle = dropdown.querySelector('.dropdown-toggle');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
     });
 
     // Back to Top Button

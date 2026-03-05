@@ -13,7 +13,26 @@
       "Bash(git remote set-url:*)",
       "Bash(git remote:*)",
       "Bash(git commit:*)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl:*)",
+      "WebFetch(domain:www.web-a.co.il)",
+      "WebFetch(domain:matbeyo.github.io)",
+      "Bash(grep -c '<body>' *.html)",
+      "Bash(grep -c 'rgba\\(255,255,255,.65\\)' *.html)",
+      "Bash(grep -c '<noscript><link rel=\"\"stylesheet\"\" href=\"\"../styles.css\"\"></noscript>' *.html)",
+      "Bash(grep -c 'aria-label=\"\"תפריט\"\">' *.html)",
+      "Bash(grep -c '<ul class=\"\"nav-links\"\">' *.html)",
+      "Bash(grep -c 'class=\"\"dropdown-toggle\"\">שירותים</a>' *.html)",
+      "Bash(grep -c 'class=\"\"nav-phone\"\"><svg viewBox=\"\"0 0 24 24\"\"' *.html)",
+      "Bash(grep -c 'footer-info-item' *.html)",
+      "Bash(grep -c '<ul class=\"\"nav-links\"\" id=\"\"nav-links\"\">' *.html)",
+      "Bash(grep -c 'skip-to-content' *.html)",
+      "Bash(grep -c 'rgba\\(255,255,255,.78\\)' *.html)",
+      "Bash(grep -c 'opacity:1!important' *.html)",
+      "Bash(grep -c 'id=\"\"nav-links\"\"' *.html)",
+      "Bash(grep -c 'aria-haspopup=\"\"true\"\"' *.html)",
+      "Bash(grep -c 'nav-phone.*aria-hidden' *.html)",
+      "Bash(grep -c 'aria-hidden=\"\"true\"\"' *.html)"
     ]
   }
 }
