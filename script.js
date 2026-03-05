@@ -28,12 +28,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Close mobile menu when clicking a link
+    // Close mobile menu when clicking a link (skip dropdown toggles)
     const navItems = document.querySelectorAll('.nav-links a');
     navItems.forEach(item => {
         item.addEventListener('click', function() {
+            if (this.classList.contains('dropdown-toggle')) return;
             navLinks.classList.remove('active');
             mobileMenuBtn.classList.remove('active');
+        });
+    });
+
+    // Mobile: toggle dropdown on click
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                this.closest('.nav-dropdown').classList.toggle('open');
+            }
         });
     });
 
@@ -172,57 +184,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
 
     // Observe elements for animation
-    const animateElements = document.querySelectorAll('.service-card, .why-card, .about-feature');
+    const animateElements = document.querySelectorAll('.service-card, .about-feature');
     animateElements.forEach(el => {
         el.style.opacity = '0';
         observer.observe(el);
     });
-
-    // Stats counter animation
-    const statsSection = document.querySelector('.hero-stats');
-    let hasAnimated = false;
-
-    const statsObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !hasAnimated) {
-                hasAnimated = true;
-                animateStats();
-            }
-        });
-    }, { threshold: 0.5 });
-
-    if (statsSection) {
-        statsObserver.observe(statsSection);
-    }
-
-    function animateStats() {
-        const stats = document.querySelectorAll('.stat-number');
-
-        stats.forEach(stat => {
-            const text = stat.textContent;
-            const hasPlus = text.includes('+');
-            const hasSlash = text.includes('/');
-
-            if (hasSlash) {
-                // For "24/7" type stats, just show it
-                return;
-            }
-
-            const target = parseInt(text.replace(/\D/g, ''));
-            const duration = 2000;
-            const step = target / (duration / 16);
-            let current = 0;
-
-            const timer = setInterval(() => {
-                current += step;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                stat.textContent = Math.floor(current) + (hasPlus ? '+' : '');
-            }, 16);
-        });
-    }
 
     // Back to Top Button
     const backToTop = document.querySelector('.back-to-top');

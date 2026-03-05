@@ -80,7 +80,6 @@
         "email": "info@iteam-sh.co.il",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "רחוב אחוזה",
             "addressLocality": "רעננה",
             "addressRegion": "מרכז",
             "postalCode": "4310000",
@@ -210,9 +209,19 @@
                     <img src="images/iteam-logo.png" alt="iTeam-sh לוגו" class="logo-img">
                 </a>
                 <ul class="nav-links">
-                    <li><a href="#services">שירותים</a></li>
+                    <li class="nav-dropdown">
+                        <a href="#services" class="dropdown-toggle">שירותים</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="services/it-consulting.html">ייעוץ IT לעסקים</a></li>
+                            <li><a href="services/infrastructure-projects.html">הקמה ושדרוג מערכות</a></li>
+                            <li><a href="services/it-management-support.html">ניהול ותמיכה במחשוב</a></li>
+                            <li><a href="services/it-optimization.html">אופטימיזציה של מערכות IT</a></li>
+                            <li><a href="services/cloud-services.html">שירותי ענן לעסקים</a></li>
+                            <li><a href="services/cyber-security.html">פתרונות אבטחת מידע</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#about">אודות</a></li>
-                    <li><a href="#why-us">למה אנחנו</a></li>
+                    <li><a href="tel:072-2504001" class="nav-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 072-2504001</a></li>
                     <li><a href="#contact" class="btn btn-nav">צור קשר</a></li>
                 </ul>
                 <button class="mobile-menu-btn" aria-label="תפריט">
@@ -272,7 +281,7 @@
                         <li>בניית תוכנית טכנולוגית לצמיחת העסק</li>
                         <li>תכנון אסטרטגיות IT בהתאמה אישית</li>
                     </ul>
-                    <a href="services/it-consulting.html" class="service-link">למידע נוסף ←</a>
+                    <a href="services/it-consulting.html" class="service-link btn-service">למידע נוסף</a>
                 </div>
 
                 <!-- Service 2 -->
@@ -290,7 +299,7 @@
                         <li>שדרוג מערכות קיימות והטמעת פתרונות טכנולוגיים</li>
                         <li>הגירת נתונים ושדרוג תשתיות IT</li>
                     </ul>
-                    <a href="services/infrastructure-projects.html" class="service-link">למידע נוסף ←</a>
+                    <a href="services/infrastructure-projects.html" class="service-link btn-service">למידע נוסף</a>
                 </div>
 
                 <!-- Service 3 -->
@@ -309,7 +318,7 @@
                         <li>ניטור ובקרה על מערכות המחשוב</li>
                         <li>פתרון תקלות בזמן אמת (Helpdesk)</li>
                     </ul>
-                    <a href="services/it-management-support.html" class="service-link">למידע נוסף ←</a>
+                    <a href="services/it-management-support.html" class="service-link btn-service">למידע נוסף</a>
                 </div>
 
                 <!-- Service 4 -->
@@ -325,7 +334,7 @@
                         <li>ייעול ביצועים ושיפור תהליכים טכנולוגיים קיימים</li>
                         <li>המלצות לשדרוג וחיסכון בעלויות</li>
                     </ul>
-                    <a href="services/it-optimization.html" class="service-link">למידע נוסף ←</a>
+                    <a href="services/it-optimization.html" class="service-link btn-service">למידע נוסף</a>
                 </div>
 
                 <!-- Service 5 -->
@@ -341,7 +350,7 @@
                         <li>שירותי שרתים וירטואליים</li>
                         <li>ניהול ובקרה של סביבות ענן</li>
                     </ul>
-                    <a href="services/cloud-services.html" class="service-link">למידע נוסף ←</a>
+                    <a href="services/cloud-services.html" class="service-link btn-service">למידע נוסף</a>
                 </div>
 
                 <!-- Service 6 -->
@@ -357,19 +366,8 @@
                         <li>הטמעת כלים למניעת פריצות וסייבר</li>
                         <li>ניהול הרשאות ואבטחת מידע פנימית</li>
                     </ul>
-                    <a href="services/cyber-security.html" class="service-link">למידע נוסף ←</a>
+                    <a href="services/cyber-security.html" class="service-link btn-service">למידע נוסף</a>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>מוכנים לשדרג את ה-IT של העסק?</h2>
-                <p>השאירו פרטים ונחזור אליכם תוך 24 שעות עם הצעה מותאמת אישית</p>
-                <a href="#contact" class="btn btn-primary btn-large">דברו איתנו עכשיו</a>
             </div>
         </div>
     </section>
@@ -558,38 +556,6 @@
         </div>
     </section>
 
-    <!-- Why Us Section -->
-    <section id="why-us" class="why-us">
-        <div class="container">
-            <div class="section-header">
-                <h2>למה לבחור ב-iTeam?</h2>
-                <p>היתרונות שלנו הופכים אותנו לשותף האידיאלי עבור העסק שלך</p>
-            </div>
-            <div class="why-us-grid">
-                <div class="why-card">
-                    <div class="why-number">01</div>
-                    <h3>מומחיות ומקצועיות</h3>
-                    <p>צוות מומחים מנוסה עם הסמכות מובילות בתעשייה</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-number">02</div>
-                    <h3>זמינות גבוהה</h3>
-                    <p>תמיכה ומענה מהיר לכל פנייה</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-number">03</div>
-                    <h3>פתרונות מותאמים</h3>
-                    <p>כל פתרון מותאם לצרכים הספציפיים של העסק שלך</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-number">04</div>
-                    <h3>חיסכון בעלויות</h3>
-                    <p>אופטימיזציה של משאבים וחיסכון משמעותי בהוצאות IT</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Partners Section -->
     <section class="partners">
         <div class="container">
@@ -707,6 +673,17 @@
         </div>
     </section>
 
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>מוכנים לשדרג את ה-IT של העסק?</h2>
+                <p>השאירו פרטים ונחזור אליכם תוך 24 שעות עם הצעה מותאמת אישית</p>
+                <a href="#contact" class="btn btn-primary btn-large">דברו איתנו עכשיו</a>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
@@ -779,12 +756,20 @@
                     <p>פתרונות IT מקצועיים לעסקים</p>
                 </div>
                 <div class="footer-links">
-                    <h4>קישורים מהירים</h4>
+                    <h4>מידע</h4>
                     <ul>
-                        <li><a href="#services">שירותים</a></li>
-                        <li><a href="#about">אודות</a></li>
-                        <li><a href="#why-us">למה אנחנו</a></li>
-                        <li><a href="#contact">צור קשר</a></li>
+                        <li class="footer-info-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            רעננה
+                        </li>
+                        <li class="footer-info-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            א׳-ה׳ 09:00-18:00
+                        </li>
+                        <li class="footer-info-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            50+ עסקים סומכים עלינו
+                        </li>
                     </ul>
                 </div>
                 <div class="footer-services">
@@ -818,5 +803,6 @@
     </button>
 
     <script src="script.js"></script>
+    <script src="https://negishot.co.il/cdn/widget.php?code=NGS_D0E40FA9000C"></script>
 </body>
 </html>

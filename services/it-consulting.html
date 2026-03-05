@@ -82,7 +82,6 @@
             "email": "info@iteam-sh.co.il",
             "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "רחוב אחוזה",
                 "addressLocality": "רעננה",
                 "addressRegion": "מרכז",
                 "postalCode": "4310000",
@@ -425,7 +424,7 @@
 
         /* Timeline Section */
         .timeline-section {
-            padding: 100px 0;
+            padding: 60px 0;
             background: var(--bg-primary);
             position: relative;
         }
@@ -485,9 +484,9 @@
 
         .timeline-item {
             position: relative;
-            padding: 0 0 4rem;
+            padding: 0 0 2rem;
             display: grid;
-            grid-template-columns: 1fr 80px 1fr;
+            grid-template-columns: 1fr 60px 1fr;
             gap: 0;
             align-items: start;
             opacity: 0;
@@ -930,9 +929,19 @@
                     <img src="../images/iteam-logo.png" alt="iTeam-sh לוגו" class="logo-img">
                 </a>
                 <ul class="nav-links">
-                    <li><a href="../index.html#services">שירותים</a></li>
+                    <li class="nav-dropdown">
+                        <a href="../index.html#services" class="dropdown-toggle">שירותים</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="it-consulting.html">ייעוץ IT לעסקים</a></li>
+                            <li><a href="infrastructure-projects.html">הקמה ושדרוג מערכות</a></li>
+                            <li><a href="it-management-support.html">ניהול ותמיכה במחשוב</a></li>
+                            <li><a href="it-optimization.html">אופטימיזציה של מערכות IT</a></li>
+                            <li><a href="cloud-services.html">שירותי ענן לעסקים</a></li>
+                            <li><a href="cyber-security.html">פתרונות אבטחת מידע</a></li>
+                        </ul>
+                    </li>
                     <li><a href="../index.html#about">אודות</a></li>
-                    <li><a href="../index.html#why-us">למה אנחנו</a></li>
+                    <li><a href="tel:072-2504001" class="nav-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 072-2504001</a></li>
                     <li><a href="../index.html#contact" class="btn btn-nav">צור קשר</a></li>
                 </ul>
                 <button class="mobile-menu-btn" aria-label="פתח תפריט" aria-expanded="false" aria-controls="nav-links">
@@ -1342,7 +1351,6 @@
             </div>
         </section>
     </main>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -1354,12 +1362,20 @@
                     <p>פתרונות IT מקצועיים לעסקים</p>
                 </div>
                 <div class="footer-links">
-                    <h4>קישורים מהירים</h4>
+                    <h4>מידע</h4>
                     <ul>
-                        <li><a href="../index.html#services">שירותים</a></li>
-                        <li><a href="../index.html#about">אודות</a></li>
-                        <li><a href="../index.html#why-us">למה אנחנו</a></li>
-                        <li><a href="../index.html#contact">צור קשר</a></li>
+                        <li class="footer-info-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            רעננה
+                        </li>
+                        <li class="footer-info-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            א׳-ה׳ 09:00-18:00
+                        </li>
+                        <li class="footer-info-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            50+ עסקים סומכים עלינו
+                        </li>
                     </ul>
                 </div>
                 <div class="footer-services">
@@ -1422,5 +1438,6 @@
             });
         });
     </script>
+    <script src="https://negishot.co.il/cdn/widget.php?code=NGS_D0E40FA9000C"></script>
 </body>
 </html>
