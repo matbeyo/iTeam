@@ -1,20 +1,20 @@
 // iTeam-sh Website JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Theme Toggle
-    var themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-            var isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            if (isLight) {
-                document.documentElement.removeAttribute('data-theme');
-                localStorage.setItem('iteam-theme', 'dark');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                localStorage.setItem('iteam-theme', 'light');
-            }
-        });
-    }
+    // Theme Toggle (disabled — light mode only)
+    // var themeToggle = document.getElementById('themeToggle');
+    // if (themeToggle) {
+    //     themeToggle.addEventListener('click', function() {
+    //         var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    //         if (isLight) {
+    //             document.documentElement.removeAttribute('data-theme');
+    //             localStorage.setItem('iteam-theme', 'dark');
+    //         } else {
+    //             document.documentElement.setAttribute('data-theme', 'light');
+    //             localStorage.setItem('iteam-theme', 'light');
+    //         }
+    //     });
+    // }
 
     // Mobile Menu Toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -162,8 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var group = input.closest('.form-group');
         group.classList.remove('has-error');
         input.removeAttribute('aria-invalid');
-        var isLight = document.documentElement.getAttribute('data-theme') === 'light';
-        input.style.borderColor = isLight ? 'rgba(0, 31, 63, 0.12)' : 'rgba(255, 255, 255, 0.1)';
+        input.style.borderColor = 'rgba(0, 31, 63, 0.12)';
     }
 
     if (contactForm) {
@@ -372,8 +371,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             draw() {
-                var isLight = document.documentElement.getAttribute('data-theme') === 'light';
-                var rgb = isLight ? '0, 31, 63' : '255, 255, 255';
+                var rgb = '0, 31, 63';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = 'rgba(' + rgb + ', ' + this.opacity + ')';
@@ -388,8 +386,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Draw connecting lines between nearby particles
         function drawLinks() {
-            var isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            var linkRgb = isLight ? '0, 31, 63' : '255, 255, 255';
+            var linkRgb = '0, 31, 63';
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;

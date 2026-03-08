@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Theme: apply saved preference before paint -->
+    <!-- Theme: always force light mode -->
     <script>
         (function() {
-            var t = localStorage.getItem('iteam-theme');
-            if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
+            document.documentElement.setAttribute('data-theme', 'light');
         })();
     </script>
 
@@ -104,7 +103,7 @@
     <!-- Skip to Content Link -->
     <a href="#main-content" class="skip-to-content">דלג לתוכן הראשי</a>
 
-    <!-- Theme Toggle -->
+    <!-- Theme Toggle (disabled — light mode only)
     <button class="theme-toggle" id="themeToggle" aria-label="החלף ערכת נושא">
         <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"/>
@@ -121,6 +120,7 @@
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
     </button>
+    -->
 
     <!-- Header -->
     <header class="header">

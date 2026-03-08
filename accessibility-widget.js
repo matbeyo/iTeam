@@ -186,6 +186,22 @@
         '.a11y-no-animations .isometric-visual:hover .rack-3{transform:none !important;}',
         /* Hide SVG data packets when animations stopped */
         '.a11y-no-animations .data-packets{display:none !important;}',
+        /* Make timeline items static when animations stopped */
+        '.a11y-no-animations .timeline-item{',
+            'opacity:1 !important;',
+            'transform:none !important;',
+            'transition:none !important;',
+        '}',
+        '.a11y-no-animations .timeline-item:hover .timeline-number{',
+            'transform:translateX(-50%) !important;',
+        '}',
+        '.a11y-no-animations .timeline-content{',
+            'transition:none !important;',
+        '}',
+        '.a11y-no-animations .timeline-content:hover{',
+            'transform:none !important;',
+            'box-shadow:none !important;',
+        '}',
         /* Disable hover glow/transform effects on all cards */
         '.a11y-no-animations .service-card,',
         '.a11y-no-animations .partner-logo,',
