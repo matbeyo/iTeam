@@ -45,7 +45,7 @@
         :root{--primary-color:#001F3F;--accent-color:#0D9488;--bg-primary:#001F3F;--bg-secondary:#001529;--bg-dark:#0a1628;--text-primary:#fff;--text-secondary:rgba(255,255,255,.78);--border-color:rgba(255,255,255,.12);--transition:all .25s ease}
         [data-theme="light"]{--bg-primary:#F8F9FA;--bg-secondary:#F0F2F5;--bg-dark:#E8EBF0;--text-primary:#1a2332;--text-secondary:#475569}
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-        html{scroll-behavior:smooth}
+        html{}
         body{font-family:'Heebo',sans-serif;font-size:16px;line-height:1.7;color:var(--text-primary);background-color:var(--bg-primary);direction:rtl;opacity:0;transition:opacity .3s ease}
         .container{width:100%;max-width:1200px;margin:0 auto;padding:0 1.5rem}
         .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--bg-dark)}
@@ -1166,7 +1166,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 iTeam-sh. כל הזכויות שמורות.</p>
+                <p>&copy; 2026 iTeam-sh. כל הזכויות שמורות. | <a href="../accessibility.html" class="footer-accessibility-link">הצהרת נגישות</a></p>
             </div>
         </div>
     </footer>
@@ -1211,6 +1211,6 @@
             });
         });
     </script>
-    <script src="https://negishot.co.il/cdn/widget.php?code=NGS_E19CB022FDC3"></script>
+    <script src="../accessibility-widget.js"></script>
 </body>
 </html>

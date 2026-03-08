@@ -42,6 +42,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Mobile menu focus trap for keyboard accessibility
+    if (mobileMenuBtn && navLinks) {
+        // Focus trap: Tab/Shift+Tab cycles within open mobile menu
+        navLinks.addEventListener('keydown', function(e) {
+            if (!navLinks.classList.contains('active')) return;
+            if (e.key !== 'Tab') return;
+
+            var focusable = Array.from(navLinks.querySelectorAll(
+                'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            )).filter(function(el) {
+                return el.offsetParent !== null;
+            });
+
+            var firstEl = focusable[0];
+            var lastEl = focusable[focusable.length - 1];
+
+            if (e.shiftKey) {
+                if (document.activeElement === firstEl) {
+                    e.preventDefault();
+                    mobileMenuBtn.focus();
+                }
+            } else {
+                if (document.activeElement === lastEl) {
+                    e.preventDefault();
+                    mobileMenuBtn.focus();
+                }
+            }
+        });
+
+        // Escape key closes mobile menu and returns focus
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenuBtn.focus();
+            }
+        });
+    }
+
     // Mobile: toggle dropdown on click
     const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
     dropdownToggles.forEach(toggle => {
@@ -84,7 +124,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Smooth scroll for anchor links
+    // Smooth scroll for anchor links (respects prefers-reduced-motion)
+    const prefersReducedMotionScroll = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -95,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 window.scrollTo({
                     top: targetPosition,
-                    behavior: 'smooth'
+                    behavior: prefersReducedMotionScroll ? 'auto' : 'smooth'
                 });
             }
         });
@@ -216,27 +258,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Intersection Observer for animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    // Intersection Observer for animations (respects prefers-reduced-motion)
+    const prefersReducedMotionAnim = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-fade-in-up');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements for animation
     const animateElements = document.querySelectorAll('.service-card, .about-feature');
-    animateElements.forEach(el => {
-        el.style.opacity = '0';
-        observer.observe(el);
-    });
+
+    if (!prefersReducedMotionAnim) {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in-up');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        animateElements.forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+    }
 
     // Close dropdown on outside click
     document.addEventListener('click', function(e) {
@@ -262,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         backToTop.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: prefersReducedMotionScroll ? 'auto' : 'smooth' });
         });
     }
 

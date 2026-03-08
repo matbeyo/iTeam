@@ -45,7 +45,7 @@
         :root{--primary-color:#001F3F;--accent-color:#0D9488;--bg-primary:#001F3F;--bg-secondary:#001529;--bg-dark:#0a1628;--text-primary:#fff;--text-secondary:rgba(255,255,255,.78);--border-color:rgba(255,255,255,.12);--transition:all .25s ease}
         [data-theme="light"]{--bg-primary:#F8F9FA;--bg-secondary:#F0F2F5;--bg-dark:#E8EBF0;--text-primary:#1a2332;--text-secondary:#475569}
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-        html{scroll-behavior:smooth}
+        html{}
         body{font-family:'Heebo',sans-serif;font-size:16px;line-height:1.7;color:var(--text-primary);background-color:var(--bg-primary);direction:rtl;opacity:0;transition:opacity .3s ease}
         .container{width:100%;max-width:1200px;margin:0 auto;padding:0 1.5rem}
         .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--bg-dark)}
@@ -205,7 +205,7 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <nav class="nav">
+            <nav class="nav" aria-label="ניווט ראשי">
                 <a href="#" class="logo">
                     <img src="images/iteam-logo.png" alt="iTeam-sh לוגו" class="logo-img">
                 </a>
@@ -225,7 +225,7 @@
                     <li><a href="tel:072-2504001" class="nav-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 072-2504001</a></li>
                     <li><a href="#contact" class="btn btn-nav">צור קשר</a></li>
                 </ul>
-                <button class="mobile-menu-btn" aria-label="תפריט" aria-expanded="false" aria-controls="nav-links">
+                <button class="mobile-menu-btn" aria-label="פתח תפריט" aria-expanded="false" aria-controls="nav-links">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -261,10 +261,10 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="services">
+    <section id="services" class="services" aria-labelledby="services-heading">
         <div class="container">
             <div class="section-header">
-                <h2>השירותים שלנו</h2>
+                <h2 id="services-heading">השירותים שלנו</h2>
                 <p>פתרונות IT מקיפים המותאמים לצרכי העסק שלך</p>
             </div>
             <div class="services-grid">
@@ -376,11 +376,11 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about">
+    <section id="about" class="about" aria-labelledby="about-heading">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2>אנחנו iTeam</h2>
+                    <h2 id="about-heading">אנחנו iTeam</h2>
                     <p class="about-lead">השותף הטכנולוגי שלך להצלחה עסקית</p>
                     <p>ב-iTeam אנחנו מאמינים שטכנולוגיה צריכה לעבוד בשביל העסק שלך, ולא להפך. עם ניסיון רב בתחום ה-IT, אנחנו מספקים פתרונות מותאמים אישית לעסקים בכל רחבי הארץ.</p>
                     <p>הצוות שלנו מורכב ממומחי IT מנוסים, שמבינים את האתגרים הייחודיים של עסקים בצמיחה. אנחנו לא רק מתקנים בעיות - אנחנו בונים תשתית טכנולוגית שתתמוך בהתפתחות העסק שלך לאורך זמן.</p>
@@ -710,13 +710,15 @@
                         <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24" aria-hidden="true" class="quote-icon">
                             <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
                         </svg>
-                        <p>המלצה תתווסף בקרוב...</p>
+                        <blockquote><p>המלצה תתווסף בקרוב...</p></blockquote>
                     </div>
                     <div class="testimonial-author">
-                        <div class="testimonial-avatar">א.כ</div>
+                        <div class="testimonial-avatar" aria-hidden="true">א.כ</div>
                         <div class="testimonial-info">
-                            <strong>אבי כהן</strong>
-                            <span>מנכ"ל, חברה לדוגמה</span>
+                            <cite>
+                                <strong>אבי כהן</strong>
+                                <span>מנכ"ל, חברה לדוגמה</span>
+                            </cite>
                         </div>
                     </div>
                 </div>
@@ -725,13 +727,15 @@
                         <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24" aria-hidden="true" class="quote-icon">
                             <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
                         </svg>
-                        <p>המלצה תתווסף בקרוב...</p>
+                        <blockquote><p>המלצה תתווסף בקרוב...</p></blockquote>
                     </div>
                     <div class="testimonial-author">
-                        <div class="testimonial-avatar">ש.ל</div>
+                        <div class="testimonial-avatar" aria-hidden="true">ש.ל</div>
                         <div class="testimonial-info">
-                            <strong>שרה לוי</strong>
-                            <span>סמנכ"לית טכנולוגיות, חברה לדוגמה</span>
+                            <cite>
+                                <strong>שרה לוי</strong>
+                                <span>סמנכ"לית טכנולוגיות, חברה לדוגמה</span>
+                            </cite>
                         </div>
                     </div>
                 </div>
@@ -740,13 +744,15 @@
                         <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24" aria-hidden="true" class="quote-icon">
                             <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
                         </svg>
-                        <p>המלצה תתווסף בקרוב...</p>
+                        <blockquote><p>המלצה תתווסף בקרוב...</p></blockquote>
                     </div>
                     <div class="testimonial-author">
-                        <div class="testimonial-avatar">ד.מ</div>
+                        <div class="testimonial-avatar" aria-hidden="true">ד.מ</div>
                         <div class="testimonial-info">
-                            <strong>דוד מזרחי</strong>
-                            <span>מנהל IT, חברה לדוגמה</span>
+                            <cite>
+                                <strong>דוד מזרחי</strong>
+                                <span>מנהל IT, חברה לדוגמה</span>
+                            </cite>
                         </div>
                     </div>
                 </div>
@@ -766,11 +772,11 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact" aria-labelledby="contact-heading">
         <div class="container">
             <div class="contact-wrapper">
                 <div class="contact-info">
-                    <h2>צרו קשר</h2>
+                    <h2 id="contact-heading">צרו קשר</h2>
                     <p>מעוניינים לשמוע עוד? השאירו פרטים ונחזור אליכם בהקדם</p>
                     <div class="contact-details">
                         <div class="contact-item">
@@ -877,7 +883,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 iTeam-sh. כל הזכויות שמורות.</p>
+                <p>&copy; 2026 iTeam-sh. כל הזכויות שמורות. | <a href="accessibility.html" class="footer-accessibility-link">הצהרת נגישות</a></p>
             </div>
         </div>
     </footer>
@@ -890,6 +896,6 @@
     </button>
 
     <script src="script.js"></script>
-    <script src="https://negishot.co.il/cdn/widget.php?code=NGS_E19CB022FDC3"></script>
+    <script src="accessibility-widget.js"></script>
 </body>
 </html>

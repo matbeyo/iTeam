@@ -641,8 +641,10 @@ html {
     padding: 0;
 }
 
-html {
-    scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
 }
 
 body {
@@ -691,6 +693,19 @@ body::-webkit-scrollbar-thumb {
 
 .skip-to-content:focus {
     top: 0.75rem;
+}
+
+/* Visually hidden but accessible to screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* Focus Visible Styles */
@@ -2467,6 +2482,14 @@ ul {
     animation: fadeInUp 0.5s ease-out forwards;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .animate-fade-in-up {
+        animation: none;
+        opacity: 1 !important;
+        transform: none;
+    }
+}
+
 /* Form Success State */
 .form-success {
     text-align: center;
@@ -2540,4 +2563,117 @@ ul {
     border-color: var(--accent-color);
     color: #ffffff;
     box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
+}
+
+/* ========================================
+   Accessibility Statement Page
+   ======================================== */
+.accessibility-hero {
+    padding: 140px 0 60px;
+    background: var(--bg-primary);
+}
+
+.accessibility-hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-top: 1rem;
+    color: var(--text-primary);
+}
+
+.accessibility-statement {
+    padding: 60px 0 100px;
+}
+
+.accessibility-statement article {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.accessibility-statement h2 {
+    font-size: 1.4rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.accessibility-statement p,
+.accessibility-statement li {
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    line-height: 1.8;
+}
+
+.accessibility-statement ul {
+    padding-right: 1.5rem;
+    margin-bottom: 1rem;
+    list-style: disc;
+}
+
+.accessibility-statement a {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+.accessibility-statement a:hover {
+    color: var(--text-primary);
+}
+
+.accessibility-contact-info {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.accessibility-contact-info p {
+    margin-bottom: 0.5rem;
+}
+
+/* Footer accessibility link */
+.footer-accessibility-link {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+.footer-accessibility-link:hover {
+    color: #ffffff;
+}
+
+[data-theme="light"] .footer-accessibility-link:hover {
+    color: var(--text-primary);
+}
+
+/* ========================================
+   High Contrast / Forced Colors Support
+   ======================================== */
+@media (forced-colors: active) {
+    :focus-visible {
+        outline: 3px solid ButtonText;
+    }
+
+    .btn {
+        border: 2px solid ButtonText;
+    }
+
+    .service-card,
+    .testimonial-card {
+        border: 1px solid ButtonText;
+    }
+
+    .skip-to-content {
+        forced-color-adjust: none;
+        background: Highlight;
+        color: HighlightText;
+    }
+
+    .mobile-menu-btn span {
+        background: ButtonText;
+    }
+
+    .hero-bg-glow,
+    .hero-bg-grid {
+        display: none;
+    }
 }
