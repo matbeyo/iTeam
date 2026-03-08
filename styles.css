@@ -196,16 +196,11 @@ html {
         linear-gradient(90deg, rgba(0, 31, 63, 0.03) 1px, transparent 1px);
 }
 
-/* Light theme: partner cards */
-[data-theme="light"] .partner-card {
-    background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
-    border-color: rgba(0, 31, 63, 0.08);
-    box-shadow: 0 2px 8px rgba(0, 31, 63, 0.06), 0 1px 3px rgba(0, 31, 63, 0.04);
-}
-
-[data-theme="light"] .partner-card:hover {
-    box-shadow: 0 12px 32px rgba(0, 31, 63, 0.10), 0 4px 8px rgba(13, 148, 136, 0.06);
-    transform: translateY(-2px);
+/* Light theme: partner logos */
+[data-theme="light"] .partner-logo {
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 31, 63, 0.08);
+    box-shadow: 0 2px 6px rgba(0, 31, 63, 0.05);
 }
 
 /* Light theme: customer logos */
@@ -770,39 +765,6 @@ body::-webkit-scrollbar-thumb {
     color: #dc2626;
 }
 
-/* Marquee pause button */
-.marquee-pause-btn {
-    position: absolute;
-    top: 0.5rem;
-    left: 0.5rem;
-    z-index: 2;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid var(--border-color);
-    background: var(--glass-bg);
-    color: var(--text-secondary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-    padding: 0;
-}
-
-.marquee-pause-btn:hover {
-    background: var(--glass-bg-hover);
-    color: var(--text-primary);
-}
-
-.marquee-pause-btn svg {
-    width: 14px;
-    height: 14px;
-}
-
-.customers-marquee {
-    position: relative;
-}
 
 /* Container */
 .container {
@@ -1113,7 +1075,8 @@ ul {
 .services,
 .about,
 .partners,
-.customers {
+.customers,
+.testimonials {
     position: relative;
 }
 
@@ -1661,62 +1624,64 @@ ul {
     z-index: 1;
 }
 
-.partners-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+.partners-marquee {
+    position: relative;
+    overflow: hidden;
+    direction: ltr;
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
 }
 
-.partner-card {
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: var(--radius-md);
-    padding: 2rem 1.5rem;
-    text-align: center;
-    transition: var(--transition);
+.partners-track {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.partner-card:hover {
-    background: #ffffff;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-    transform: translateY(-3px);
+    gap: 3rem;
+    width: max-content;
+    animation: partnersScroll 30s linear infinite;
 }
 
 .partner-logo {
-    width: 100%;
-    height: 60px;
+    flex-shrink: 0;
+    width: 180px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0.5rem;
-}
-
-.partner-logo img {
-    max-width: 100%;
-    max-height: 60px;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    opacity: 0.85;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 1rem;
     transition: var(--transition);
 }
 
-.partner-card:hover .partner-logo img {
+.partner-logo:hover {
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.partner-logo img {
+    display: block;
+    max-width: 140px;
+    max-height: 70px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: var(--transition);
+}
+
+.partner-logo:hover img {
+    filter: grayscale(0%);
     opacity: 1;
 }
 
-.partner-logo img.logo-large {
-    max-height: 80px;
-}
-
-.partner-desc {
-    font-size: 0.85rem;
-    color: #4a5568;
-    line-height: 1.5;
+@keyframes partnersScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 /* ========================================
@@ -1788,16 +1753,161 @@ ul {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .customers-track {
+    .customers-track,
+    .partners-track {
         animation: none;
         flex-wrap: wrap;
         justify-content: center;
         width: auto;
     }
 
-    .customers-marquee {
+    .customers-marquee,
+    .partners-marquee {
         mask-image: none;
         -webkit-mask-image: none;
+    }
+}
+
+/* ========================================
+   Testimonials Section
+   ======================================== */
+.testimonials {
+    padding: 80px 0;
+    background: var(--bg-secondary);
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonials::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+}
+
+.testimonials::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(var(--grid-line-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line-color) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+    pointer-events: none;
+}
+
+.testimonials .container {
+    position: relative;
+    z-index: 1;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.testimonial-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.testimonial-card:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--accent-color);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.testimonial-quote {
+    position: relative;
+}
+
+.testimonial-quote .quote-icon {
+    color: var(--accent-color);
+    opacity: 0.4;
+    width: 28px;
+    height: 28px;
+    margin-bottom: 0.75rem;
+}
+
+.testimonial-quote p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-style: italic;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.testimonial-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.testimonial-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.testimonial-info strong {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.testimonial-info span {
+    color: var(--text-light);
+    font-size: 0.8rem;
+}
+
+[data-theme="light"] .testimonials {
+    background: var(--bg-primary);
+}
+
+@media (max-width: 768px) {
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .testimonial-card:last-child {
+        grid-column: 1 / -1;
+        max-width: 50%;
+        justify-self: center;
     }
 }
 
@@ -2144,10 +2254,6 @@ ul {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .partners-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .other-services-grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -2256,13 +2362,19 @@ ul {
 
 
 
-    .partners-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+    .partners-track {
+        gap: 2rem;
     }
 
-    .partner-card {
-        padding: 1.5rem 1rem;
+    .partner-logo {
+        width: 150px;
+        height: 85px;
+        padding: 0.75rem;
+    }
+
+    .partner-logo img {
+        max-width: 120px;
+        max-height: 60px;
     }
 
     .customer-logo {

@@ -238,28 +238,6 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
-    // Marquee Pause Button
-    var marqueePauseBtn = document.querySelector('.marquee-pause-btn');
-    if (marqueePauseBtn) {
-        marqueePauseBtn.addEventListener('click', function() {
-            var track = document.querySelector('.customers-track');
-            var isPaused = this.getAttribute('aria-pressed') === 'true';
-            if (isPaused) {
-                track.style.animationPlayState = 'running';
-                this.setAttribute('aria-pressed', 'false');
-                this.setAttribute('aria-label', 'עצור אנימציה');
-                this.querySelector('.pause-icon').style.display = '';
-                this.querySelector('.play-icon').style.display = 'none';
-            } else {
-                track.style.animationPlayState = 'paused';
-                this.setAttribute('aria-pressed', 'true');
-                this.setAttribute('aria-label', 'הפעל אנימציה');
-                this.querySelector('.pause-icon').style.display = 'none';
-                this.querySelector('.play-icon').style.display = '';
-            }
-        });
-    }
-
     // Close dropdown on outside click
     document.addEventListener('click', function(e) {
         var dropdowns = document.querySelectorAll('.nav-dropdown.open');
