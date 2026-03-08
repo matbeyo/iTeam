@@ -32,7 +32,8 @@
       "Bash(grep -c 'id=\"\"nav-links\"\"' *.html)",
       "Bash(grep -c 'aria-haspopup=\"\"true\"\"' *.html)",
       "Bash(grep -c 'nav-phone.*aria-hidden' *.html)",
-      "Bash(grep -c 'aria-hidden=\"\"true\"\"' *.html)"
+      "Bash(grep -c 'aria-hidden=\"\"true\"\"' *.html)",
+      "Bash(python -c \"f=open\\(''C:/Users/matbe/OneDrive/Desktop/iTeam-main/styles.css'',''r'',encoding=''utf-8''\\); t=f.read\\(\\); f.close\\(\\); print\\(len\\(t\\)\\); print\\(''.partners-track'' in t\\); print\\(''.partners-marquee'' in t\\)\")"
     ]
   }
 }
