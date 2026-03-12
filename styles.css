@@ -2564,6 +2564,48 @@ ul {
         opacity: 1 !important;
         transform: none;
     }
+
+    /* Disable hover pop-up/scale transforms */
+    .btn-primary:hover,
+    .hero .btn-primary:hover,
+    .btn-service:hover,
+    .theme-toggle:hover,
+    .back-to-top:hover,
+    .service-card:hover,
+    .other-service-card:hover,
+    .testimonial-card:hover,
+    .advantage-card:hover,
+    .feature-card:hover,
+    .approach-card:hover,
+    .process-card:hover,
+    .benefit-card:hover,
+    .pillar-card:hover,
+    .support-card:hover,
+    .support-service-card:hover,
+    .diagnostic-card:hover,
+    .tier-card:hover,
+    .tool-card:hover,
+    .metric-card:hover,
+    .methodology-card:hover,
+    .service-detail-card:hover,
+    .timeline-content:hover,
+    .isometric-visual:hover .rack-1,
+    .isometric-visual:hover .rack-2,
+    .isometric-visual:hover .rack-3 {
+        transform: none !important;
+    }
+
+    .btn-primary,
+    .btn-service,
+    .theme-toggle,
+    .back-to-top,
+    .dropdown-menu,
+    .service-card,
+    .other-service-card,
+    .testimonial-card,
+    .timeline-content {
+        transition: none !important;
+    }
 }
 
 /* Form Success State */
