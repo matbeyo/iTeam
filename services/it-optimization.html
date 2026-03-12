@@ -39,28 +39,13 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 
-    <!-- Critical CSS inlined to prevent FOUC while full stylesheet loads async -->
-    <style>
-        :root{--primary-color:#001F3F;--accent-color:#0D9488;--bg-primary:#001F3F;--bg-secondary:#001529;--bg-dark:#0a1628;--text-primary:#fff;--text-secondary:rgba(255,255,255,.78);--border-color:rgba(255,255,255,.12);--transition:all .25s ease}
-        [data-theme="light"]{--bg-primary:#F8F9FA;--bg-secondary:#F0F2F5;--bg-dark:#E8EBF0;--text-primary:#1a2332;--text-secondary:#475569}
-        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-        html{}
-        body{font-family:'Heebo',sans-serif;font-size:16px;line-height:1.7;color:var(--text-primary);background-color:var(--bg-primary);direction:rtl;opacity:0;transition:opacity .3s ease}
-        .container{width:100%;max-width:1200px;margin:0 auto;padding:0 1.5rem}
-        .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--bg-dark)}
-        .nav{display:flex;align-items:center;justify-content:space-between;height:80px}
-        .hero{padding:160px 0 100px;background:var(--primary-color);position:relative;overflow:hidden}
-    </style>
-
-    <!-- Stylesheets: loaded asynchronously to eliminate render-blocking -->
-    <link rel="preload" href="../styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="../styles.css"><style>body{opacity:1!important}</style></noscript>
-
-    <!-- Google Fonts: loaded asynchronously -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap"></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../styles.css">
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -477,28 +462,6 @@
             text-anchor: middle;
         }
 
-        /* Partners Section */
-        .optim-partners {
-            padding: 80px 0;
-            background: var(--bg-primary);
-            position: relative;
-        }
-
-        .optim-partners::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image:
-                linear-gradient(var(--grid-line-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-line-color) 1px, transparent 1px);
-            background-size: var(--grid-size) var(--grid-size);
-            pointer-events: none;
-        }
-
-        .optim-partners .container {
-            position: relative;
-            z-index: 1;
-        }
 
         /* Related Services Section */
         .related-services {
@@ -708,6 +671,9 @@
         </svg>
     </button>
     -->
+
+    <!-- Blurry Header Filter -->
+    <div id="blurry-filter" aria-hidden="true"></div>
 
     <!-- Header -->
     <header class="header">
@@ -1020,37 +986,58 @@
             </div>
         </section>
 
-        <!-- Partners / Trust Signals Section -->
-        <section class="optim-partners" aria-labelledby="partners-title">
+        <!-- Partners Section -->
+        <section class="partners" aria-labelledby="partners-title">
             <div class="container">
                 <div class="section-header">
                     <h2 id="partners-title">עובדים עם הטובים ביותר</h2>
                     <p>שותפים עסקיים ופתרונות מובילים בתעשייה</p>
                 </div>
-                <div class="partners-grid">
-                    <div class="partner-card">
+                <div class="partners-marquee">
+                    <div class="partners-track">
                         <div class="partner-logo">
-                            <img src="../images/partners/eset-logo.png" alt="ESET Logo">
+                            <img src="../images/partners/microsoft-logo.png" alt="Microsoft">
                         </div>
-                        <span class="partner-desc">אבטחת מידע והגנה מפני איומים</span>
-                    </div>
-                    <div class="partner-card">
                         <div class="partner-logo">
-                            <img src="../images/partners/microsoft-logo.png" alt="Microsoft Logo">
+                            <img src="../images/partners/Dell-Logopng.png" alt="Dell">
                         </div>
-                        <span class="partner-desc">פתרונות ענן ופרודוקטיביות</span>
-                    </div>
-                    <div class="partner-card">
                         <div class="partner-logo">
-                            <img src="../images/partners/acronis-logo.png" alt="Acronis Logo" class="logo-large">
+                            <img src="../images/partners/HP-logo.png" alt="HP">
                         </div>
-                        <span class="partner-desc">גיבוי והגנת נתונים</span>
-                    </div>
-                    <div class="partner-card">
                         <div class="partner-logo">
-                            <img src="../images/partners/nakivo-logo.png" alt="Nakivo Logo" class="logo-large">
+                            <img src="../images/partners/lenovo-logo.png" alt="Lenovo">
                         </div>
-                        <span class="partner-desc">גיבוי ושחזור מכונות וירטואליות</span>
+                        <div class="partner-logo">
+                            <img src="../images/partners/eset-logo.png" alt="ESET">
+                        </div>
+                        <div class="partner-logo">
+                            <img src="../images/partners/acronis-logo.png" alt="Acronis">
+                        </div>
+                        <div class="partner-logo">
+                            <img src="../images/partners/nakivo-logo.png" alt="Nakivo">
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="partner-logo">
+                            <img src="../images/partners/microsoft-logo.png" alt="Microsoft">
+                        </div>
+                        <div class="partner-logo">
+                            <img src="../images/partners/Dell-Logopng.png" alt="Dell">
+                        </div>
+                        <div class="partner-logo">
+                            <img src="../images/partners/HP-logo.png" alt="HP">
+                        </div>
+                        <div class="partner-logo">
+                            <img src="../images/partners/lenovo-logo.png" alt="Lenovo">
+                        </div>
+                        <div class="partner-logo">
+                            <img src="../images/partners/eset-logo.png" alt="ESET">
+                        </div>
+                        <div class="partner-logo">
+                            <img src="../images/partners/acronis-logo.png" alt="Acronis">
+                        </div>
+                        <div class="partner-logo">
+                            <img src="../images/partners/nakivo-logo.png" alt="Nakivo">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1141,10 +1128,6 @@
                         <li class="footer-info-item">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                             א׳-ה׳ 09:00-18:00
-                        </li>
-                        <li class="footer-info-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                            50+ עסקים סומכים עלינו
                         </li>
                     </ul>
                 </div>

@@ -111,18 +111,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Header scroll effect
+    // Header reference (used elsewhere)
     const header = document.querySelector('.header');
-
-    window.addEventListener('scroll', function() {
-        const currentScroll = window.pageYOffset;
-
-        if (currentScroll > 100) {
-            header.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1)';
-        } else {
-            header.style.boxShadow = '0 1px 2px 0 rgb(0 0 0 / 0.05)';
-        }
-    });
 
     // Smooth scroll for anchor links (respects prefers-reduced-motion)
     const prefersReducedMotionScroll = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

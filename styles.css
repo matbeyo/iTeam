@@ -85,10 +85,7 @@
     --glass-bg-hover: rgba(255, 255, 255, 0.95);
 }
 
-/* Light theme: transitions */
-html {
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
+/* Light theme: transitions (disabled — single theme) */
 
 /* Light theme: body */
 [data-theme="light"] body {
@@ -122,8 +119,7 @@ html {
 
 /* Light theme: header */
 [data-theme="light"] .header {
-    background: rgba(248, 249, 250, 0.95);
-    backdrop-filter: blur(12px);
+    background: transparent;
 }
 
 [data-theme="light"] .nav-links a {
@@ -441,6 +437,9 @@ html {
 
 /* Service page progress/step elements */
 [data-theme="light"] .cloud-progress,
+[data-theme="light"] .consulting-progress,
+[data-theme="light"] .infra-progress,
+[data-theme="light"] .support-metrics,
 [data-theme="light"] .progress-bar-wrapper {
     background: #FFFFFF;
     border-color: rgba(0, 31, 63, 0.1);
@@ -452,6 +451,32 @@ html {
 
 [data-theme="light"] .step-label {
     color: #001F3F;
+}
+
+/* Support metrics strip — light-mode overrides */
+[data-theme="light"] .metric-value {
+    color: #001F3F;
+}
+
+[data-theme="light"] .metric-label {
+    color: #475569;
+}
+
+[data-theme="light"] .support-metric-item:not(:last-child)::after {
+    background: rgba(0, 31, 63, 0.12);
+}
+
+/* Optimization page gauge — light-mode overrides */
+[data-theme="light"] .gauge-bg {
+    stroke: rgba(0, 31, 63, 0.1);
+}
+
+[data-theme="light"] .gauge-center-text {
+    fill: #001F3F;
+}
+
+[data-theme="light"] .gauge-label-text {
+    fill: #475569;
 }
 
 [data-theme="light"] .step-number {
@@ -495,6 +520,8 @@ html {
 [data-theme="light"] .service-detail-card,
 [data-theme="light"] .pillar-card,
 [data-theme="light"] .support-card,
+[data-theme="light"] .support-service-card,
+[data-theme="light"] .diagnostic-card,
 [data-theme="light"] .tier-card,
 [data-theme="light"] .tool-card,
 [data-theme="light"] .metric-card {
@@ -515,6 +542,8 @@ html {
 [data-theme="light"] .service-detail-card:hover,
 [data-theme="light"] .pillar-card:hover,
 [data-theme="light"] .support-card:hover,
+[data-theme="light"] .support-service-card:hover,
+[data-theme="light"] .diagnostic-card:hover,
 [data-theme="light"] .tier-card:hover,
 [data-theme="light"] .tool-card:hover,
 [data-theme="light"] .metric-card:hover {
@@ -524,6 +553,8 @@ html {
 }
 
 [data-theme="light"] .advantage-item-text h4,
+[data-theme="light"] .process-item-text h4,
+[data-theme="light"] .channel-item-text h4,
 [data-theme="light"] .feature-card h3,
 [data-theme="light"] .approach-card h3,
 [data-theme="light"] .process-card h3,
@@ -531,6 +562,8 @@ html {
 [data-theme="light"] .methodology-card h3,
 [data-theme="light"] .pillar-card h3,
 [data-theme="light"] .support-card h3,
+[data-theme="light"] .support-service-card h3,
+[data-theme="light"] .diagnostic-content h3,
 [data-theme="light"] .tier-card h3,
 [data-theme="light"] .tool-card h3,
 [data-theme="light"] .metric-card h3 {
@@ -677,7 +710,6 @@ body {
     line-height: 1.7;
     color: var(--text-primary);
     background-color: var(--bg-primary);
-    opacity: 1;
     direction: rtl;
     scrollbar-color: rgba(0, 31, 63, 0.15) var(--bg-primary);
 }
@@ -898,16 +930,33 @@ ul {
 }
 
 /* ========================================
+   Blurry Header Filter
+   ======================================== */
+#blurry-filter {
+    width: 100%;
+    height: 8rem;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iNCIgbnVtT2N0YXZlcz0iMSIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBzdHlsZT0iZmlsdGVyOnVybCgjZikiIG9wYWNpdHk9Ii4yIi8+PC9zdmc+");
+    mask: linear-gradient(black 3.5rem, transparent 8rem);
+    -webkit-mask: linear-gradient(black 3.5rem, transparent 8rem);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    pointer-events: none;
+    touch-action: none;
+}
+
+/* ========================================
    Header
    ======================================== */
 .header {
-    position: fixed;
+    width: 100%;
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
     z-index: 1000;
-    background: rgba(248, 249, 250, 0.95);
-    backdrop-filter: blur(12px);
+    background: transparent;
     border-bottom: none;
 }
 
@@ -915,7 +964,7 @@ ul {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
+    height: 60px;
 }
 
 .logo {
@@ -924,7 +973,7 @@ ul {
 }
 
 .logo-img {
-    height: 89px;
+    height: 85px;
     width: auto;
     display: block;
 }
@@ -945,6 +994,7 @@ ul {
     display: flex;
     align-items: center;
     gap: 2rem;
+    flex-wrap: nowrap;
 }
 
 .nav-links a {
@@ -1075,6 +1125,7 @@ ul {
     font-size: 0.85rem;
     direction: ltr;
     opacity: 0.75;
+    white-space: nowrap;
 }
 
 .nav-phone svg {
@@ -1172,7 +1223,7 @@ ul {
    Hero Section
    ======================================== */
 .hero {
-    padding: 160px 0 100px;
+    padding: 140px 0 100px;
     background: linear-gradient(135deg, #DBEAFE 0%, #EFF6FF 40%, #F0F4F8 70%, #F5F3FF 100%);
     position: relative;
     overflow: hidden;
